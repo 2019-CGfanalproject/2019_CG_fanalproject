@@ -1,6 +1,11 @@
 #pragma once
 #include "pch.h"
 #include "scene.h"
+#include "strartscene.h"
+#include "titlescene.h"
+#include "gamescene.h"
+#include "endingscene.h"
+
 
 using namespace std;
 using namespace chrono;
@@ -12,7 +17,7 @@ private:
 	system_clock::time_point cur_time;
 	milliseconds frametime;
 
-	CScene* cur_scene { nullptr };
+	CScene* cur_scene = { nullptr };
 
 public:
 	CFramework();

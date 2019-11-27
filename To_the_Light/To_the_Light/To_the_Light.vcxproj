@@ -126,16 +126,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aircraft.cpp" />
+    <ClCompile Include="fixedobstacle.cpp" />
+    <ClCompile Include="flag.cpp" />
+    <ClCompile Include="gamescene.cpp" />
+    <ClCompile Include="movingobstacle.cpp" />
+    <ClCompile Include="titlescene.cpp" />
+    <ClCompile Include="endingscene.cpp" />
     <ClCompile Include="framework.cpp" />
     <ClCompile Include="gameobj.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objectmanager.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="shader.cpp" />
-    <ClCompile Include="uimanager.cpp" />
+    <ClCompile Include="strartscene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aircraft.h" />
+    <ClInclude Include="fixedobstacle.h" />
+    <ClInclude Include="flag.h" />
+    <ClInclude Include="gamescene.h" />
+    <ClInclude Include="movingobstacle.h" />
+    <ClInclude Include="titlescene.h" />
+    <ClInclude Include="endingscene.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameobj.h" />
     <ClInclude Include="objectmanager.h" />
@@ -143,7 +155,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="uimanager.h" />
+    <ClInclude Include="strartscene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="To_the_Light.rc" />

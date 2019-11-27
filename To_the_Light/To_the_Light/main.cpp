@@ -4,10 +4,6 @@
 #define TIMERCLOCK 13
 
 
-// 일단 게임신이 있어야 한다.
-// 게임신을 어떻게 구현하지
-// 음 프레임 워크에서 게임 신을 돌리는 것으로 구현
-
 CFramework framework;
 
 GLvoid drawScene();

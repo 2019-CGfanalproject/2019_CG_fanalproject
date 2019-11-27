@@ -31,6 +31,27 @@
     <Filter Include="manager">
       <UniqueIdentifier>{3b09c83b-aacb-4a0c-b572-4c8eb14509e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene\start">
+      <UniqueIdentifier>{f1c08311-537a-44ec-a51c-6e3f0f6ee64d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\title">
+      <UniqueIdentifier>{a59c0032-b644-4b01-bc78-134b5a65e6b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\ending">
+      <UniqueIdentifier>{e77ea638-91a6-424b-a16c-2a958a0fdb96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\game">
+      <UniqueIdentifier>{6980ff91-6c07-40e0-8169-f0bce5c8efd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameobject\fixedobstacle">
+      <UniqueIdentifier>{58f499db-3af0-464e-b859-ae3922927563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameobject\flag">
+      <UniqueIdentifier>{0b03675e-c4cd-40bd-bb32-7db3bfae7429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameobject\movingobstacle">
+      <UniqueIdentifier>{069a2e75-9744-42d9-9b24-fd9279a81590}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,14 +69,32 @@
     <ClCompile Include="aircraft.cpp">
       <Filter>gameobject\aircraft</Filter>
     </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="objectmanager.cpp">
       <Filter>manager</Filter>
     </ClCompile>
-    <ClCompile Include="uimanager.cpp">
-      <Filter>manager</Filter>
+    <ClCompile Include="scene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="endingscene.cpp">
+      <Filter>scene\ending</Filter>
+    </ClCompile>
+    <ClCompile Include="strartscene.cpp">
+      <Filter>scene\start</Filter>
+    </ClCompile>
+    <ClCompile Include="gamescene.cpp">
+      <Filter>scene\game</Filter>
+    </ClCompile>
+    <ClCompile Include="titlescene.cpp">
+      <Filter>scene\title</Filter>
+    </ClCompile>
+    <ClCompile Include="movingobstacle.cpp">
+      <Filter>gameobject\movingobstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="fixedobstacle.cpp">
+      <Filter>gameobject\fixedobstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="flag.cpp">
+      <Filter>gameobject\flag</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,14 +116,32 @@
     <ClInclude Include="aircraft.h">
       <Filter>gameobject\aircraft</Filter>
     </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="objectmanager.h">
       <Filter>manager</Filter>
     </ClInclude>
-    <ClInclude Include="uimanager.h">
-      <Filter>manager</Filter>
+    <ClInclude Include="scene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="endingscene.h">
+      <Filter>scene\ending</Filter>
+    </ClInclude>
+    <ClInclude Include="strartscene.h">
+      <Filter>scene\start</Filter>
+    </ClInclude>
+    <ClInclude Include="gamescene.h">
+      <Filter>scene\game</Filter>
+    </ClInclude>
+    <ClInclude Include="titlescene.h">
+      <Filter>scene\title</Filter>
+    </ClInclude>
+    <ClInclude Include="movingobstacle.h">
+      <Filter>gameobject\movingobstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="fixedobstacle.h">
+      <Filter>gameobject\fixedobstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="flag.h">
+      <Filter>gameobject\flag</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ char* get_filedata_to_buf(const char* filename) {
 	long length;
 	char* buf;
 
-	fptr = fopen(filename, "rb");
+	fopen_s(&fptr, filename, "rb");
 	if (!fptr) return nullptr;
 
 	fseek(fptr, 0, SEEK_END);	//파일의 끝까지 찾는다
