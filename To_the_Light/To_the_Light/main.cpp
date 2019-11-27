@@ -9,7 +9,9 @@ CFramework framework;
 GLvoid drawScene();
 GLvoid Reshape(int w, int h);
 
-GLvoid Keyboard(unsigned char key, int x, int y);
+GLvoid char_key_down(unsigned char key, int x, int y);
+GLvoid char_key_up(unsigned char key, int x, int y);
+
 GLvoid Timer(int value);
 GLvoid Mouse(int button, int state, int x, int y);
 GLvoid Motion(int x, int y);
@@ -41,10 +43,12 @@ void main(int argc, char** argv)
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glutDisplayFunc(drawScene);
-	glutReshapeFunc(Reshape);
+	glutReshapeFunc(nullptr);
 
 	glutTimerFunc(TIMERCLOCK, Timer, 0);
-	glutKeyboardFunc(Keyboard);
+	glutKeyboardFunc(char_key_down);
+	glutKeyboardUpFunc(char_key_down);
+	glutKeyboardUpFunc(char_key_up);
 	glutMouseFunc(Mouse);
 	glutMotionFunc(Motion);
 
@@ -56,7 +60,7 @@ void main(int argc, char** argv)
 
 GLvoid drawScene()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	framework.Draw();
 
@@ -66,18 +70,103 @@ GLvoid drawScene()
 GLvoid Reshape(int w, int h)
 {
 	// 창 크기가 변경될 때 불림
-	glutReshapeWindow(CLIENT_WIDTH, CLIENT_HIEGHT);
+	//glutReshapeWindow(CLIENT_WIDTH, CLIENT_HIEGHT);
 	glViewport(0, 0, w, h);
 }
 
-GLvoid Keyboard(unsigned char key, int x, int y)
+GLvoid char_key_down(unsigned char key, int x, int y)
 {
+
 	switch (key) {
+
+	case ' ':
+		framework.HandleEvent(Event::SPACE_KEY_DOWN, x, y);
+		break;
+
+	case '\r':
+	case '\n':
+	case '\r\n':
+		framework.HandleEvent(Event::RETURN_KEY_DOWN, x, y);
+		break;
+
+	case 'W':
+	case 'w':
+		framework.HandleEvent(Event::W_KEY_DOWN, x, y);
+		break;
+
+	case 'A':
+	case 'a':
+		framework.HandleEvent(Event::A_KEY_DOWN, x, y);
+		break;
+
+	case 'S':
+	case 's':
+		framework.HandleEvent(Event::S_KEY_DOWN, x, y);
+		break;
+
+	case 'D':
+	case 'd':
+		framework.HandleEvent(Event::D_KEY_DOWN, x, y);
+		break;
+
 	case 'Q':
 	case 'q':
-		glutLeaveMainLoop();
+		//glutLeaveMainLoop();
 		break;
 	}
+
+}
+
+GLvoid char_key_up(unsigned char key, int x, int y)
+{
+	switch (key) {
+
+	case ' ':
+		framework.HandleEvent(Event::SPACE_KEY_UP, x, y);
+		break;
+
+	case '\r':
+	case '\n':
+	case '\r\n':
+		framework.HandleEvent(Event::RETURN_KEY_UP, x, y);
+		break;
+
+	case 'W':
+	case 'w':
+		framework.HandleEvent(Event::W_KEY_UP, x, y);
+		break;
+
+	case 'A':
+	case 'a':
+		framework.HandleEvent(Event::A_KEY_UP, x, y);
+		break;
+
+	case 'S':
+	case 's':
+		framework.HandleEvent(Event::S_KEY_UP, x, y);
+		break;
+
+	case 'D':
+	case 'd':
+		framework.HandleEvent(Event::D_KEY_UP, x, y);
+		break;
+
+	case 'Q':
+	case 'q':
+		//glutLeaveMainLoop();
+		break;
+	}
+}
+
+
+GLvoid special_key_down(unsigned char key, int x, int y)
+{
+	return GLvoid();
+}
+
+GLvoid special_key_up(unsigned char key, int x, int y)
+{
+	return GLvoid();
 }
 
 GLvoid Timer(int value)

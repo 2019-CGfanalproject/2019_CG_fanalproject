@@ -11,19 +11,23 @@
 #include <ctime>
 #include <list>
 
+#pragma comment (lib, "freeglut.lib")
+#pragma comment (lib,"glew32.lib")
+
 #define RESOLUTION 160
-#define CLIENT_WIDTH	8 * RESOLUTION
-#define CLIENT_HIEGHT	5 * RESOLUTION
+#define CLIENT_WIDTH	8 * RESOLUTION  // 1280
+#define CLIENT_HIEGHT	5 * RESOLUTION  // 800
 
 typedef enum Event {
+	W_KEY_DOWN, W_KEY_UP,
+	A_KEY_DOWN, A_KEY_UP,
+	S_KEY_DOWN, S_KEY_UP,
+	D_KEY_DOWN, D_KEY_UP,
+	SPACE_KEY_DOWN, SPACE_KEY_UP,
+	RETURN_KEY_DOWN, RETURN_KEY_UP,
+
 }Event;
 
-// 좌표 바꾸는 함수가 필요하다
-
-//int get_world_coord_x(float value) {
-//	return (int)((value + 1) * float(CLIENT_WIDTH) / 2.0f);
-//}
-//
-//int get_world_coord_y(float value) {
-//	return (int)((-value + 1) * float(CLIENT_HIEGHT) / 2.0f);
-//}
+typedef enum Scene { 
+	TITLE, GAME, ENDING
+}Scene;

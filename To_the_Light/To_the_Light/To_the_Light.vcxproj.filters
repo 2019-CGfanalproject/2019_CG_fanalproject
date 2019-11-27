@@ -31,9 +31,6 @@
     <Filter Include="manager">
       <UniqueIdentifier>{3b09c83b-aacb-4a0c-b572-4c8eb14509e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="scene\start">
-      <UniqueIdentifier>{f1c08311-537a-44ec-a51c-6e3f0f6ee64d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="scene\title">
       <UniqueIdentifier>{a59c0032-b644-4b01-bc78-134b5a65e6b6}</UniqueIdentifier>
     </Filter>
@@ -78,9 +75,6 @@
     <ClCompile Include="endingscene.cpp">
       <Filter>scene\ending</Filter>
     </ClCompile>
-    <ClCompile Include="strartscene.cpp">
-      <Filter>scene\start</Filter>
-    </ClCompile>
     <ClCompile Include="gamescene.cpp">
       <Filter>scene\game</Filter>
     </ClCompile>
@@ -124,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="endingscene.h">
       <Filter>scene\ending</Filter>
-    </ClInclude>
-    <ClInclude Include="strartscene.h">
-      <Filter>scene\start</Filter>
     </ClInclude>
     <ClInclude Include="gamescene.h">
       <Filter>scene\game</Filter>

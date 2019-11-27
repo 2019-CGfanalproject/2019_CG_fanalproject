@@ -1,16 +1,10 @@
 #pragma once
 #include "pch.h"
-#include "scene.h"
-#include "strartscene.h"
-#include "titlescene.h"
-#include "gamescene.h"
-#include "endingscene.h"
-
 
 using namespace std;
 using namespace chrono;
 
-
+class CScene;
 class CFramework
 {
 private:
@@ -32,8 +26,9 @@ public:
 
 	void Update();
 
-	void KeyEvent(Event a_event);
+	void HandleEvent(Event, int mouse_x, int mouse_y);
 
-	void MouseEvent(Event a_event, int mouse_x, int mouse_y);
+	void enter_scene(Scene);
 };
+
 
