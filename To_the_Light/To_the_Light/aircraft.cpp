@@ -11,7 +11,7 @@ CAircraft::CAircraft(GLuint model_location)
 	glGenBuffers(2, vbo);
 	glBindVertexArray(vao);
 	
-	loadObj("Resource/obj/box.obj", outvertex, outnormal, outuv);
+	loadObj("Resource/Object/aircraft.obj", outvertex, outnormal, outuv);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glBufferData(GL_ARRAY_BUFFER, outvertex.size() * sizeof(glm::vec3), &outvertex[0], GL_STATIC_DRAW);

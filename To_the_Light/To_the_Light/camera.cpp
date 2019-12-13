@@ -4,7 +4,7 @@ CCamera::CCamera(GLuint view_location)
 {
 	m_view_location = view_location;
 
-	camera_pos = vec3(0, 0, 1);
+	camera_pos = vec3(0, 0.5, 1);
 	camera_center = camera_pos + vec3(0, 0, -1);
 	camera_up = vec3(0, 1, 0);
 

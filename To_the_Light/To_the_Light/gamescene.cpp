@@ -47,7 +47,7 @@ void CGameScene::draw()
 	m_aircraft->draw();
 }
 
-void CGameScene::update(std::chrono::milliseconds framtime)
+void CGameScene::update(std::chrono::milliseconds frametime)
 {
 	m_aircraft->update(frametime);
 	m_camera->update();
@@ -62,7 +62,7 @@ void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 
 void CGameScene::init_map()
 {
-	loadObj("Resource/obj/map.obj", map_vertex, map_normal, map_uv);
+	loadObj("Resource/Object/map.obj", map_vertex, map_normal, map_uv);
 
 	glGenVertexArrays(1, &map_vao);
 	glGenBuffers(2, map_vbo);

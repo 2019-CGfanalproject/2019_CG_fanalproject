@@ -1,4 +1,5 @@
 #pragma once
+#include "pch.h"
 
 class CGameObject
 {
@@ -8,6 +9,6 @@ public:
 
 	virtual void draw() = 0;
 
-	virtual void update() = 0;
+	virtual void update(std::chrono::milliseconds framtime) = 0;
 };
 
