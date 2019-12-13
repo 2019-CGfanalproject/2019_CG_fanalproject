@@ -3,8 +3,10 @@
 #include "shader.h"
 
 
-CAircraft::CAircraft()
+CAircraft::CAircraft(GLuint model_location)
 {
+	m_model_location = model_location;
+
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(2, vbo);
 	glBindVertexArray(vao);
@@ -30,27 +32,29 @@ CAircraft::~CAircraft()
 void CAircraft::draw()
 {
 	glBindVertexArray(vao);
+	glUniformMatrix4fv(m_model_location, 1, GL_FALSE, value_ptr(transform));
 	glDrawArrays(GL_TRIANGLES, 0, outvertex.size());
 }
 
-void CAircraft::update()
+void CAircraft::update(std::chrono::milliseconds framtime)
 {
-	transform = translate_world * rotate_world;
+	// glm:rotate_world = glm::rotate(rotate_world, glm::radians(-angle), glm::vec3{ 0,1,0 });
+	translate_world = glm::translate(glm::mat4(1), pos);
 
+	transform = translate_world;
 }
 
 void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
-	
 	switch (a_event) {
 	case W_KEY_DOWN:
-		pos = pos + direction;
+		pos = pos - direction;
 		break;
 	case A_KEY_DOWN:
 		glm::vec3 left = glm::vec3{ glm::cos(glm::radians(angle - 90)) , 0 ,  glm::sin(glm::radians(angle - 90)) } *0.2f;
 		pos = pos + left;
 		break;
 	case S_KEY_DOWN:
-		pos = pos - direction;
+		pos = pos + direction;
 		break;
 	case D_KEY_DOWN:
 		glm::vec3 right = glm::vec3{ glm::cos(glm::radians(angle + 90)) , 0 ,  glm::sin(glm::radians(angle + 90)) } *0.2f;
@@ -61,7 +65,4 @@ void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 		pos = pos + up;
 		break;
 	}
-
-
-
 }

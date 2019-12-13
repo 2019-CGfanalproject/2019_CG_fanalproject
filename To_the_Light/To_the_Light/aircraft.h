@@ -2,9 +2,13 @@
 #include "gameobj.h"
 #include <vector>
 
+using namespace glm;
+
 
 class CAircraft: public CGameObject
 {
+	GLuint m_model_location;
+
 	float view_x;
 	float view_y;
 
@@ -14,8 +18,8 @@ class CAircraft: public CGameObject
 	float angle = 270;
 
 	glm::mat4 transform = glm::mat4{ 1.0, };
-	glm::mat4 rotate_world = glm::rotate(rotate_world, glm::radians(-angle), glm::vec3{ 0,1,0 });
-	glm::mat4 translate_world = glm::translate(translate_world, pos);
+	glm::mat4 rotate_world = mat4(1);
+	glm::mat4 translate_world = mat4(1);
 	
 
 	GLuint vao;
@@ -24,14 +28,14 @@ class CAircraft: public CGameObject
 	std::vector< glm::vec2 > outuv;
 
 public:
-	CAircraft();
+	CAircraft(GLuint model_location);
 	~CAircraft();
 	
 	virtual void handle_event(Event a_event, int mouse_x, int mouse_y);
 
 	virtual void draw();
 
-	virtual void update();
+	virtual void update(std::chrono::milliseconds framtime);
 
 };
 

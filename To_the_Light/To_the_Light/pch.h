@@ -16,8 +16,8 @@
 #pragma comment (lib,"glew32.lib")
 
 #define RESOLUTION 160
-#define CLIENT_WIDTH	8 * RESOLUTION  // 1280
-#define CLIENT_HIEGHT	5 * RESOLUTION  // 800
+#define CLIENT_WIDTH	(8 * RESOLUTION)  // 1280
+#define CLIENT_HIEGHT	(5 * RESOLUTION)  // 800
 
 typedef enum Event {
 	W_KEY_DOWN, W_KEY_UP,

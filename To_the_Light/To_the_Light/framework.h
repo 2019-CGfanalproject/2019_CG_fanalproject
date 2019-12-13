@@ -30,6 +30,8 @@ public:
 	void HandleEvent(Event, int mouse_x, int mouse_y);
 
 	void enter_scene(Scene);
+
+	GLuint* get_shader_id();
 };
 
 

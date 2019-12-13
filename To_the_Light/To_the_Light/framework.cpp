@@ -20,7 +20,10 @@ void CFramework::Initialize()
 {
 	init_shader_program(&shader_id, "vertex.glsl", "fragment.glsl");
 	glUseProgram(shader_id);
-
+	// GLint model_location = glGetUniformLocation(shader_id, "modelTransform");
+	// glm::mat4 model = scale(glm::mat4(1), glm::vec3(1));
+	// 
+	// glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(model));
 	
 	cur_time = chrono::system_clock::now();
 	enter_scene(Scene::TITLE);
@@ -68,4 +71,9 @@ void CFramework::enter_scene(Scene scene_id)
 		break;
 	}
 	cur_scene->initalize(this);
+}
+
+GLuint* CFramework::get_shader_id()
+{
+	return &shader_id;
 }

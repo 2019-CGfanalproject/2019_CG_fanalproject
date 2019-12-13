@@ -20,5 +20,11 @@ class CCamera
 public:
 	CCamera(GLuint view_location);
 	~CCamera();
+
+	void update();
+
+	void draw();
+
+	void handle_event(GLuint, int, int);
 };
 

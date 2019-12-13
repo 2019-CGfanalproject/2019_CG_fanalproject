@@ -1,16 +1,25 @@
 #pragma once
 #include "scene.h"
-
+#include "pch.h"
 
 class CFramework;
+
 class CGameObject;
 class CAircraft;
+class CCamera;
 
 class CGameScene : public CScene
 {
 	CFramework* m_framework{ nullptr };
 
 	GLuint shader_id;
+	GLuint model_location;
+	GLuint veiw_location;
+	GLuint projection_location;
+	glm::mat4 projection;
+	glm::mat4 model = scale(glm::mat4(1), glm::vec3(0.5));
+
+	CCamera* m_camera;
 
 
 
@@ -33,4 +42,6 @@ public:
 
 	virtual void handle_event(Event a_event, int mouse_x, int mouse_y);
 
+
+	void init_map();
 };
