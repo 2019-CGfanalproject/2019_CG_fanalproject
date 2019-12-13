@@ -37,9 +37,6 @@
     <Filter Include="scene\ending">
       <UniqueIdentifier>{e77ea638-91a6-424b-a16c-2a958a0fdb96}</UniqueIdentifier>
     </Filter>
-    <Filter Include="scene\game">
-      <UniqueIdentifier>{6980ff91-6c07-40e0-8169-f0bce5c8efd8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gameobject\fixedobstacle">
       <UniqueIdentifier>{58f499db-3af0-464e-b859-ae3922927563}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,12 @@
     </Filter>
     <Filter Include="gameobject\movingobstacle">
       <UniqueIdentifier>{069a2e75-9744-42d9-9b24-fd9279a81590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\game">
+      <UniqueIdentifier>{6980ff91-6c07-40e0-8169-f0bce5c8efd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameobject\camera">
+      <UniqueIdentifier>{2c9a43cb-dae4-4c81-a964-8f00d09506dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="flag.cpp">
       <Filter>gameobject\flag</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>gameobject\camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,10 +140,21 @@
     <ClInclude Include="flag.h">
       <Filter>gameobject\flag</Filter>
     </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>gameobject\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="To_the_Light.rc">
       <Filter>리소스 파일</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fragment.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="vertex.glsl">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

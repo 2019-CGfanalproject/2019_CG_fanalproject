@@ -12,8 +12,8 @@ uniform mat4 projectionTransform;
 
 void main()
 {
-gl_Position = projectionTransform*viewTransform*modelTransform*vec4(vPos,1.0f);
-FragPos = vec3(modelTransform*vec4(vPos,1.0));
-viewPos = vec3(gl_Position);
-Normal = normalize(vNormal);
+	gl_Position = vec4(vPos,1.0f);
+	FragPos = vec3(modelTransform*vec4(vPos,1.0));
+	viewPos = vec3(gl_Position);
+	Normal = normalize(vNormal);
 }

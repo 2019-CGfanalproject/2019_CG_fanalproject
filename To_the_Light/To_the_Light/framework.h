@@ -12,6 +12,7 @@ private:
 	milliseconds frametime;
 
 	CScene* cur_scene = { nullptr };
+	GLuint shader_id;
 
 public:
 	CFramework();

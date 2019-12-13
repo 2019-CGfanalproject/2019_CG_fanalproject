@@ -73,28 +73,29 @@ bool init_shader_program(GLuint* id, const char* filename_vert, const char* file
 	}
 
 	return true;
-
 }
 
-//obj load
-
-std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
-std::vector< glm::vec3 > temp_vertices;
-std::vector< glm::vec2 > temp_uvs;
-std::vector< glm::vec3 > temp_normals;
-std::vector< glm::vec3 > outvertex, outnormal;
-std::vector< glm::vec2 > outuv;
 
 
-int loadObj(const char* filename)
+
+
+int loadObj(const char* filename, std::vector< glm::vec3 >& outvertex,
+	std::vector< glm::vec3 >& outnormal, std::vector< glm::vec2 >& outuv)
 {
+	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
+	std::vector< glm::vec3 > temp_vertices;
+	std::vector< glm::vec2 > temp_uvs;
+	std::vector< glm::vec3 > temp_normals;
+
+	float sumX = 0.0, sumY = 0.0, sumZ = 0.0;
+	float aveX, aveY, aveZ;
+	float scaleX, scaleY, scaleZ;
+	float minX = -20.0, minY = -20.0, minZ = -20.0;
+	float maxX = 20.0, maxY = 20.0, maxZ = 20.0;
+	float scaleAll;
+
 	FILE* objFile;
-	temp_normals.clear();
-	temp_uvs.clear();
-	temp_vertices.clear();
-	outnormal.clear();
-	outvertex.clear();
-	outuv.clear();
+
 	fopen_s(&objFile, filename, "rb");
 
 	if (objFile == NULL) {
@@ -112,6 +113,15 @@ int loadObj(const char* filename)
 			glm::vec3 vertex;
 			fscanf(objFile, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
 
+			if (vertex.x < minX) minX = vertex.x;
+			if (vertex.y < minY) minY = vertex.y;
+			if (vertex.z < minZ) minZ = vertex.z;
+			if (vertex.x > maxX) maxX = vertex.x;
+			if (vertex.y > maxY) maxY = vertex.y;
+			if (vertex.z > maxZ) maxZ = vertex.z;
+			sumX += vertex.x;
+			sumY += vertex.y;
+			sumZ += vertex.z;
 
 			temp_vertices.push_back(vertex);
 		}
@@ -145,6 +155,26 @@ int loadObj(const char* filename)
 		}
 	}
 
+	aveX = sumX / vertexIndices.size();
+	aveY = sumY / vertexIndices.size();
+	aveZ = sumZ / vertexIndices.size();
+	scaleX = (1.0 - maxX) * 10 + 1;
+	scaleY = (1.0 - maxY) * 10 + 1;
+	scaleZ = (1.0 - maxZ) * 10 + 1;
+
+	if (scaleX > scaleY) {
+		if (scaleY > scaleZ)
+			scaleAll = scaleZ;
+		else
+			scaleAll = scaleY;
+	}
+	else if (scaleX < scaleY) {
+		if (scaleX < scaleZ)
+			scaleAll = scaleX;
+		else
+			scaleAll = scaleZ;
+	}
+
 
 	for (unsigned int i = 0; i < vertexIndices.size(); i++) {
 		unsigned int vertexIndex = vertexIndices[i];
@@ -161,6 +191,6 @@ int loadObj(const char* filename)
 		glm::vec3 vertex = temp_normals[normalIndex - 1];
 		outnormal.push_back(vertex);
 	}
-	fclose(objFile);
+
 	return outvertex.size();
 }

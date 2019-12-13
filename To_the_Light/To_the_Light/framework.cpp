@@ -3,6 +3,8 @@
 #include "scene.h"
 #include "titlescene.h"
 #include "gamescene.h"
+#include "shader.h"
+
 //#include "endingscene.h"
 
 
@@ -16,6 +18,10 @@ CFramework::~CFramework()
 
 void CFramework::Initialize()
 {
+	init_shader_program(&shader_id, "vertex.glsl", "fragment.glsl");
+	glUseProgram(shader_id);
+
+	
 	cur_time = chrono::system_clock::now();
 	enter_scene(Scene::TITLE);
 }
