@@ -35,4 +35,28 @@ void CAircraft::draw()
 
 void CAircraft::update()
 {
+	transform = translate_world * rotate_world;
+
+}
+
+void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
+	
+	switch (a_event) {
+	case W_KEY_DOWN:
+		pos = pos + direction;
+		break;
+	case A_KEY_DOWN:
+		break;
+	case S_KEY_DOWN:
+
+		break;
+	case D_KEY_DOWN:
+		break
+
+
+
+	}
+
+
+
 }

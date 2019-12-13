@@ -42,7 +42,7 @@ void CGameScene::draw()
 {
 	glBindVertexArray(map_vao);
 	glDrawArrays(GL_TRIANGLES, 0, map_vertex.size());
-
+	
 	m_aircraft->draw();
 }
 
@@ -52,4 +52,7 @@ void CGameScene::update(std::chrono::milliseconds framtime)
 
 void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 {
+
+	m_aircraft->handle_event(a_event,  mouse_x, mouse_y);
+
 }
