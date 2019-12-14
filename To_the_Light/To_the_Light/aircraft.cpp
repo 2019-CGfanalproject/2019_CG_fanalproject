@@ -16,6 +16,9 @@ CAircraft::CAircraft()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(0);
 
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+	glBufferData(GL_ARRAY_BUFFER, outnormal.size() * sizeof(glm::vec3), &outnormal[0], GL_STATIC_DRAW);
+
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(1);
 
@@ -52,22 +55,38 @@ void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 	case W_KEY_DOWN:
 		pos = pos + direction;
 		break;
+	case W_KEY_UP:
+		break;
+
 	case A_KEY_DOWN:
 		glm::vec3 left = glm::vec3{ glm::sin(glm::radians(angle + 90)) , 0 ,  glm::cos(glm::radians(angle + 90)) } *0.2f;
 		pos = pos + left;
 		break;
+	case A_KEY_UP:
+		break;
+
 	case S_KEY_DOWN:
 		pos = pos + (-direction);
 		break;
+	case S_KEY_UP:
+		break;
+
 	case D_KEY_DOWN:
 		glm::vec3 right = glm::vec3{ glm::sin(glm::radians(angle - 90)) , 0 ,  glm::cos(glm::radians(angle - 90)) } *0.2f;
 		pos = pos + right;
 		break;
+	case D_KEY_UP:
+		break;
+
 	case SPACE_KEY_DOWN:
 		glm::vec3 up = glm::vec3{ 0 , glm::sin(glm::radians(angle + 90)) ,  glm::cos(glm::radians(angle + 90)) } *0.2f;
 		// pos = pos + up;
 		pos = pos + vec3(0, 0.1, 0);
-
+		break;
+	case SPACE_KEY_UP:
+		// glm::vec3 up = glm::vec3{ 0 , glm::sin(glm::radians(angle + 90)) ,  glm::cos(glm::radians(angle + 90)) } *0.2f;
+		// pos = pos + up;
+		pos = pos + vec3(0, 0.1, 0);
 		break;
 	}
 }
