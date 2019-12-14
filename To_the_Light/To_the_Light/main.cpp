@@ -39,6 +39,7 @@ void main(int argc, char** argv)
 
 	
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 	framework.Initialize();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

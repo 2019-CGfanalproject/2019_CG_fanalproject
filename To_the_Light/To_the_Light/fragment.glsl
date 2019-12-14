@@ -34,7 +34,7 @@ void main()
 	//vec3 emissive = emissivelight*lightColor;
 
 
-	vec3 result = (ambient+diffuse )*passColor;
+	vec3 result = (ambient + specular)*passColor;
 	
 	FragColor=vec4(result,1.0f);
 
