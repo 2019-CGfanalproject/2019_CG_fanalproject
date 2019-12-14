@@ -24,6 +24,8 @@ void CGameScene::initalize(CFramework* p_fw)
 	model_location = glGetUniformLocation(shader_id, "modelTransform");
 	veiw_location = glGetUniformLocation(shader_id, "viewTransform");
 	projection_location = glGetUniformLocation(shader_id, "projectionTransform");
+	object_color_location = glGetUniformLocation(shader_id, "object_color");
+
 
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
@@ -31,8 +33,10 @@ void CGameScene::initalize(CFramework* p_fw)
 
 	init_map();
 
-	m_aircraft = new CAircraft(model_location);
+	m_aircraft = new CAircraft();
 	m_camera = new CCamera(veiw_location, m_aircraft);
+
+	m_aircraft->set_uniform_location(model_location, object_color_location);
 
 }
 
@@ -40,6 +44,7 @@ void CGameScene::draw()
 {
 	
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(model));
+	glUniform3f(object_color_location, 1, 1, 0);
 	glBindVertexArray(map_vao);
 	glDrawArrays(GL_TRIANGLES, 0, map_vertex.size());
 
@@ -58,6 +63,10 @@ void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 
 	m_aircraft->handle_event(a_event,  mouse_x, mouse_y);
 
+}
+
+void CGameScene::release()
+{
 }
 
 void CGameScene::init_map()

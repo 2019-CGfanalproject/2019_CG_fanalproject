@@ -2,10 +2,8 @@
 #include "shader.h"
 
 
-CAircraft::CAircraft(GLuint model_location)
+CAircraft::CAircraft()
 {
-	m_model_location = model_location;
-
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(2, vbo);
 	glBindVertexArray(vao);
@@ -35,6 +33,8 @@ void CAircraft::draw()
 {
 	glBindVertexArray(vao);
 	glUniformMatrix4fv(m_model_location, 1, GL_FALSE, value_ptr(transform));
+	glUniform3f(m_color_location, m_color.x, m_color.y, m_color.z);
+	
 	glDrawArrays(GL_TRIANGLES, 0, outvertex.size());
 }
 
@@ -80,4 +80,10 @@ vec3 CAircraft::get_direction()
 vec3 CAircraft::get_pos()
 {
 	return pos;
+}
+
+void CAircraft::set_uniform_location(GLuint model_location, GLuint color_location)
+{
+	m_model_location = model_location;
+	m_color_location = color_location;
 }

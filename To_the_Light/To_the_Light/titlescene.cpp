@@ -30,3 +30,7 @@ void CTitleScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 	if (a_event == Event::RETURN_KEY_DOWN)
 		m_framework->enter_scene(Scene::GAME);
 }
+
+void CTitleScene::release()
+{
+}

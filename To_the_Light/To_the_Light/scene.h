@@ -18,4 +18,6 @@ public:
 	virtual void update(std::chrono::milliseconds frametime) = 0;
 
 	virtual void handle_event(Event a_event, int mouse_x, int mouse_y) = 0;
+
+	virtual void release() = 0;
 };

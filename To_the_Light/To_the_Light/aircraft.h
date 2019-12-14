@@ -8,6 +8,8 @@ using namespace glm;
 class CAircraft: public CGameObject
 {
 	GLuint m_model_location;
+	GLuint m_color_location;
+	vec3 m_color = vec3(0, 1, 1);
 
 	float view_x;
 	float view_y;
@@ -28,7 +30,7 @@ class CAircraft: public CGameObject
 	std::vector< glm::vec2 > outuv;
 
 public:
-	CAircraft(GLuint model_location);
+	CAircraft();
 	~CAircraft();
 	
 	virtual void handle_event(Event a_event, int mouse_x, int mouse_y);
@@ -41,4 +43,5 @@ public:
 
 	vec3 get_pos();
 
+	void set_uniform_location(GLuint model_location, GLuint color_location);
 };
