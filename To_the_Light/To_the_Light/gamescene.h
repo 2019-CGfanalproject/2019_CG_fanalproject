@@ -7,6 +7,7 @@ class CFramework;
 class CGameObject;
 class CAircraft;
 class CCamera;
+class CMap;
 
 class CGameScene : public CScene
 {
@@ -23,13 +24,11 @@ class CGameScene : public CScene
 	glm::mat4 projection;
 	glm::mat4 model = scale(glm::mat4(1), glm::vec3(0.5));
 
-	CCamera* m_camera;
+	CCamera* m_camera{ nullptr };
+
+	CMap* m_map{ nullptr };
 
 
-
-	GLuint map_vao, map_vbo[2];
-	std::vector< glm::vec3 > map_vertex, map_normal;
-	std::vector< glm::vec2 > map_uv;
 
 	CAircraft* m_aircraft{ nullptr };
 	std::list< CGameObject*> m_game_object;
@@ -48,5 +47,4 @@ public:
 
 	virtual void release();
 
-	void init_map();
 };

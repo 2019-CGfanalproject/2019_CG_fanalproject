@@ -1,9 +1,9 @@
 #include "gamescene.h"
 #include "framework.h"
-#include "shader.h"
 #include "gameobj.h"
 #include "aircraft.h"
 #include "camera.h"
+#include "map.h"
 
 
 CGameScene::CGameScene()
@@ -30,25 +30,18 @@ void CGameScene::initalize(CFramework* p_fw)
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
 
-
-	init_map();
-
+	
+	m_map = new CMap();
 	m_aircraft = new CAircraft();
 	m_camera = new CCamera(veiw_location, m_aircraft);
 
 	m_aircraft->set_uniform_location(model_location, object_color_location);
-
+	m_map->set_uniform_location(model_location, object_color_location);
 }
 
 void CGameScene::draw()
 {
-	
-	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(model));
-	glUniform3f(object_color_location, 1, 1, 0);
-	glBindVertexArray(map_vao);
-	glDrawArrays(GL_TRIANGLES, 0, map_vertex.size());
-
-	
+	m_map->draw();
 	m_aircraft->draw();
 }
 
@@ -67,23 +60,4 @@ void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 
 void CGameScene::release()
 {
-}
-
-void CGameScene::init_map()
-{
-	loadObj("Resource/Object/map.obj", map_vertex, map_normal, map_uv);
-
-	glGenVertexArrays(1, &map_vao);
-	glGenBuffers(2, map_vbo);
-	glBindVertexArray(map_vao);
-
-	glBindBuffer(GL_ARRAY_BUFFER, map_vbo[0]);
-	glBufferData(GL_ARRAY_BUFFER, map_vertex.size() * sizeof(glm::vec3), &map_vertex[0], GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
-	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
-	glEnableVertexAttribArray(1);
-
 }
