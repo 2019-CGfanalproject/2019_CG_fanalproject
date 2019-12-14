@@ -11,6 +11,8 @@ class CAircraft: public CGameObject
 	GLuint m_color_location;
 	vec3 m_color = vec3(0, 1, 1);
 
+	float gravity = -0.01;
+
 	vec3 pos = { 0, 2, 0 };
 	vec3 direction;
 	vec3 right;

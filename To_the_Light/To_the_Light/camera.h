@@ -9,7 +9,7 @@ class CCamera
 	GLuint m_view_location;
 
 	CAircraft* target_obj;
-	vec3 distance_to_target = vec3(0, -0.5, 3);
+	vec3 distance_to_target = vec3(0, -1, 3);
 
 	float camera_pos_angle;
 	float camera_dir_angle;

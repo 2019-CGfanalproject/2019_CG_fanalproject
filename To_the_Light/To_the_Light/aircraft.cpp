@@ -40,8 +40,11 @@ void CAircraft::draw()
 	glDrawArrays(GL_TRIANGLES, 0, outvertex.size());
 }
 
-void CAircraft::update(std::chrono::milliseconds framtime)
+void CAircraft::update(std::chrono::milliseconds frametime)
 {	
+	if (pos.y > 0.5) {
+		pos.y += (gravity * frametime.count());
+	}
 	direction = vec3{ sin(radians(angle)) , 0 ,  cos(radians(angle)) };
 	// glm:rotate_world = glm::rotate(rotate_world, glm::radians(-angle), glm::vec3{ 0,1,0 });
 	translate_world = glm::translate(glm::mat4(1), pos);
@@ -86,7 +89,7 @@ void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 	case SPACE_KEY_UP:
 		// glm::vec3 up = glm::vec3{ 0 , glm::sin(glm::radians(angle + 90)) ,  glm::cos(glm::radians(angle + 90)) } *0.2f;
 		// pos = pos + up;
-		pos = pos + vec3(0, 0.1, 0);
+		pos = pos + vec3(0, 1, 0);
 		break;
 	}
 }
