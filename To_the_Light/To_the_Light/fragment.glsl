@@ -10,7 +10,7 @@ out vec4 FragColor;
 uniform vec3 lightPos;
 uniform vec3 lightColor;
 uniform vec3 objectColor;
-
+uniform float alpha;
 void main()
 {
 	vec3 ambientLight =  vec3(0.2f);
@@ -33,5 +33,5 @@ void main()
 
 	vec3 result = (ambient + diffuse) * passColor;
 	
-	FragColor=vec4(result,1.0f);
+	FragColor=vec4(result, alpha);
 };

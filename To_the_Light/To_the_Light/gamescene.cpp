@@ -4,7 +4,7 @@
 #include "aircraft.h"
 #include "camera.h"
 #include "map.h"
-
+#include "flag.h"
 
 CGameScene::CGameScene()
 {
@@ -27,9 +27,10 @@ void CGameScene::initalize(CFramework* p_fw)
 	object_color_location = glGetUniformLocation(shader_id, "object_color");
 	light_pos_location = glGetUniformLocation(shader_id, "lightPos"); //--- lightPos 값 전달
 	light_color_location = glGetUniformLocation(shader_id, "lightColor"); //--- lightColor 값 전달
+	alpha_location = glGetUniformLocation(shader_id, "alpha");
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glUniform3f(light_color_location, 1.f, 1.0f, 1.0f);
 	glUniform3f(light_pos_location, 1, 1, 1);
-
 
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
@@ -38,15 +39,19 @@ void CGameScene::initalize(CFramework* p_fw)
 	m_map = new CMap();
 	m_aircraft = new CAircraft();
 	m_camera = new CCamera(veiw_location, m_aircraft);
+	m_flag = new CFlag();
 
+	m_flag->set_uniform_location(model_location, object_color_location, alpha_location);
 	m_aircraft->set_uniform_location(model_location, object_color_location);
 	m_map->set_uniform_location(model_location, object_color_location);
 }
 
 void CGameScene::draw()
 {
+	glUniform1f(alpha_location, 1.0);
 	m_map->draw();
 	m_aircraft->draw();
+	m_flag->draw();
 }
 
 void CGameScene::update(std::chrono::milliseconds frametime)

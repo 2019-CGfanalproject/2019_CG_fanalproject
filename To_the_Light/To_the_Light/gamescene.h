@@ -8,6 +8,7 @@ class CGameObject;
 class CAircraft;
 class CCamera;
 class CMap;
+class CFlag;
 
 class CGameScene : public CScene
 {
@@ -19,7 +20,7 @@ class CGameScene : public CScene
 	GLuint veiw_location;
 	GLuint projection_location;
 	GLuint object_color_location;
-
+	GLuint alpha_location;
 	GLuint light_pos_location;
 	GLuint light_color_location;
 
@@ -28,6 +29,7 @@ class CGameScene : public CScene
 
 	CCamera* m_camera{ nullptr };
 	CMap* m_map{ nullptr };
+	CFlag* m_flag{ nullptr };
 
 
 

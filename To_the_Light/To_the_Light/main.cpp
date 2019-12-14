@@ -40,6 +40,7 @@ void main(int argc, char** argv)
 	glutSetCursor(GLUT_CURSOR_NONE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
 	framework.Initialize();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
