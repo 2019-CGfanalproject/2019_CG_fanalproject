@@ -57,7 +57,10 @@ void CFramework::HandleEvent(Event a_event, int mouse_x, int mouse_y)
 
 void CFramework::enter_scene(Scene scene_id)
 {
-	if (cur_scene) delete cur_scene;
+	if (cur_scene) {
+		cur_scene->release();
+		delete cur_scene;
+	}
 	cur_scene = nullptr;
 
 	switch (scene_id) {

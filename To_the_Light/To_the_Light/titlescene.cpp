@@ -15,6 +15,7 @@ void CTitleScene::initalize(CFramework* p_fw)
 {
 	std::cout << "Title" << std::endl;
 	m_framework = p_fw;
+
 }
 
 void CTitleScene::draw()
@@ -33,4 +34,5 @@ void CTitleScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 
 void CTitleScene::release()
 {
+	glClearColor(0, 0, 0.5, 1.0f);
 }
