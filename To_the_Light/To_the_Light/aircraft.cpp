@@ -64,21 +64,21 @@ void CAircraft::update(std::chrono::milliseconds a_frametime)
 void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 	switch (a_event) {
 	case W_KEY_DOWN:
-		velocity = 3;
+		velocity = PLAYER_VELOCITY;
 		break;
 	case W_KEY_UP:
 		velocity = 0;
 		break;
 
 	case A_KEY_DOWN:
-		right_velocity = 3;
+		right_velocity = PLAYER_VELOCITY;
 		break;
 	case A_KEY_UP:
 		right_velocity = 0;
 		break;
 
 	case S_KEY_DOWN:
-		velocity = -3;
+		velocity = -PLAYER_VELOCITY;
 
 		break;
 	case S_KEY_UP:
@@ -87,7 +87,7 @@ void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 		break;
 
 	case D_KEY_DOWN:
-		right_velocity = -3;
+		right_velocity = -PLAYER_VELOCITY;
 		break;
 	case D_KEY_UP:
 		right_velocity = 0;

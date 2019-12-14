@@ -22,10 +22,16 @@ CCamera::~CCamera()
 
 void CCamera::update()
 {
-	camera_pos = target_obj->get_pos() - (target_obj->get_direction() + distance_to_target);
-	// camera_pos = target_obj->get_pos() - vec3(0, -0.2, 1) * distance_to_target;
-	camera_center = target_obj->get_pos();
-
+	if (god_view) {
+		camera_pos = vec3(48, 50, 48);
+		camera_center = camera_pos + vec3(0, -1, 0);
+		camera_up = vec3(0, 0, -1);
+	}
+	else {
+		camera_pos = target_obj->get_pos() - (target_obj->get_direction() + distance_to_target);
+		// camera_pos = target_obj->get_pos() - vec3(0, -0.2, 1) * distance_to_target;
+		camera_center = target_obj->get_pos();
+	}
 	view = lookAt(camera_pos, camera_center, camera_up);
 	glUniformMatrix4fv(m_view_location, 1, GL_FALSE, glm::value_ptr(view));
 }

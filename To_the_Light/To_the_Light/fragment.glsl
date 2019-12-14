@@ -17,15 +17,13 @@ void main()
 	vec3 ambientLight =  vec3(0.2f);
 	vec3 ambient = ambientLight*lightColor;
 
-	vec3 normalVector = Normal;
 	vec3 lightDir = normalize(lightPos - FragPos);
 	float diffuseLight = max(dot(Normal,lightDir),0.0);
-	vec3 diffuse = diffuseLight*lightColor;
+	vec3 diffuse = diffuseLight * lightColor;
 	
 	int shininess = 32;
-	vec3 normVector = Normal;
 	vec3 viewDir = normalize(FragPos - viewPos);
-	vec3 reflectDir = reflect(lightDir, normVector);
+	vec3 reflectDir = reflect(lightDir, Normal);
 	float specularColor = max(dot(viewDir,reflectDir),0.0);
 	specularColor = pow(specularColor,shininess);
 	vec3 specular = specularColor*lightColor;

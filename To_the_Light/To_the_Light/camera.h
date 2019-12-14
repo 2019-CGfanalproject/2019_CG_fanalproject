@@ -9,7 +9,7 @@ class CCamera
 	GLuint m_view_location;
 
 	CAircraft* target_obj;
-	vec3 distance_to_target = vec3(0, -0.5, 1);
+	vec3 distance_to_target = vec3(0, -0.5, 0);
 
 	float camera_pos_angle;
 	float camera_dir_angle;
@@ -20,6 +20,8 @@ class CCamera
 	vec3 camera_dir;
 	vec3 camera_right;
 	mat4 view;
+
+	bool god_view = false;
 
 public:
 	CCamera(GLuint view_location, CAircraft* aircraft);

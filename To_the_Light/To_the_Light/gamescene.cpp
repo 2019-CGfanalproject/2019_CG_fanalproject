@@ -28,7 +28,7 @@ void CGameScene::initalize(CFramework* p_fw)
 	light_pos_location = glGetUniformLocation(shader_id, "lightPos"); //--- lightPos 값 전달
 	light_color_location = glGetUniformLocation(shader_id, "lightColor"); //--- lightColor 값 전달
 	glUniform3f(light_color_location, 1.f, 1.0f, 1.0f);
-	glUniform3f(light_pos_location, 0.0f, 20.0f, 0.0f);
+	glUniform3f(light_pos_location, 1, 1, 1);
 
 
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
