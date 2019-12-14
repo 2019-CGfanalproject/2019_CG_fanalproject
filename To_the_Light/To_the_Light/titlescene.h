@@ -5,6 +5,10 @@ class CFramework;
 class CTitleScene : public CScene
 {
 	CFramework* m_framework{ nullptr };
+
+	int m_mouse_x;
+	int m_mouse_y;
+
 public:
 	CTitleScene();
 	~CTitleScene();

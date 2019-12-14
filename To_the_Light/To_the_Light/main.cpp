@@ -37,7 +37,7 @@ void main(int argc, char** argv)
 	else
 		std::cout << "GLEW Initialized" << std::endl;
 
-	
+	glutSetCursor(GLUT_CURSOR_NONE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	framework.Initialize();
@@ -51,7 +51,8 @@ void main(int argc, char** argv)
 	glutKeyboardUpFunc(char_key_down);
 	glutKeyboardUpFunc(char_key_up);
 	glutMouseFunc(Mouse);
-	glutMotionFunc(Motion);
+	// glutMotionFunc(Motion);
+	glutPassiveMotionFunc(Motion);
 
 	glutMainLoop();
 
@@ -154,7 +155,7 @@ GLvoid char_key_up(unsigned char key, int x, int y)
 
 	case 'Q':
 	case 'q':
-		//glutLeaveMainLoop();
+		glutLeaveMainLoop();
 		break;
 	}
 }
@@ -195,4 +196,5 @@ GLvoid Mouse(int button, int state, int x, int y)
 
 GLvoid Motion(int x, int y)
 {
+	framework.HandleEvent(Event::MOUSE_MOTION, x, y);
 }

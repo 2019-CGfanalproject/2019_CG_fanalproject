@@ -28,6 +28,7 @@ class CAircraft: public CGameObject
 	mat4 rotate_world = mat4(1);
 	mat4 translate_world = mat4(1);
 	
+	int pre_mouse_x = 0;
 
 	GLuint vao;
 	GLuint vbo[2];

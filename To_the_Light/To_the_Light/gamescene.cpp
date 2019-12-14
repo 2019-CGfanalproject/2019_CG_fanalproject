@@ -57,9 +57,7 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 
 void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 {
-
 	m_aircraft->handle_event(a_event,  mouse_x, mouse_y);
-
 }
 
 void CGameScene::release()

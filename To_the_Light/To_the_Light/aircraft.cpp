@@ -21,9 +21,6 @@ CAircraft::CAircraft()
 
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(1);
-
-
-
 }
 
 
@@ -54,10 +51,10 @@ void CAircraft::update(std::chrono::milliseconds a_frametime)
 
 	pos.y = pos.y + fly_velocity * frametime;
 
-	// glm:rotate_world = glm::rotate(rotate_world, glm::radians(-angle), glm::vec3{ 0,1,0 });
 	translate_world = glm::translate(glm::mat4(1), pos);
+	rotate_world = glm::rotate(mat4(1), radians(angle), glm::vec3{ 0,1,0 });
 
-	transform = translate_world;
+	transform = translate_world * rotate_world;
 }
 
 
@@ -98,6 +95,13 @@ void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 		break;
 	case SPACE_KEY_UP:
 		fly_velocity = 0;
+		break;
+
+	case MOUSE_MOTION:
+		mouse_x = mouse_x - (CLIENT_WIDTH / 2);
+		int delta_x = mouse_x - pre_mouse_x;
+		angle -= (delta_x) * 0.2;
+		pre_mouse_x = mouse_x;
 		break;
 	}
 }

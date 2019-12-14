@@ -30,9 +30,13 @@ void CTitleScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 {
 	if (a_event == Event::RETURN_KEY_DOWN)
 		m_framework->enter_scene(Scene::GAME);
+
+	m_mouse_x = mouse_x;
+	m_mouse_y = mouse_y;
 }
 
 void CTitleScene::release()
 {
 	glClearColor(0, 0, 0.5, 1.0f);
+	glutWarpPointer(CLIENT_WIDTH / 2, CLIENT_HIEGHT / 2);
 }

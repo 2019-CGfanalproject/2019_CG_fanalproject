@@ -25,7 +25,6 @@ class CGameScene : public CScene
 	glm::mat4 model = scale(glm::mat4(1), glm::vec3(0.5));
 
 	CCamera* m_camera{ nullptr };
-
 	CMap* m_map{ nullptr };
 
 

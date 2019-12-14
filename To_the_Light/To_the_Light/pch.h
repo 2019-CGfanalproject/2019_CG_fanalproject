@@ -28,6 +28,7 @@ typedef enum Event {
 	D_KEY_DOWN, D_KEY_UP,
 	SPACE_KEY_DOWN, SPACE_KEY_UP,
 	RETURN_KEY_DOWN, RETURN_KEY_UP,
+	MOUSE_MOTION,
 
 }Event;
 
