@@ -37,14 +37,8 @@
     <Filter Include="scene\ending">
       <UniqueIdentifier>{e77ea638-91a6-424b-a16c-2a958a0fdb96}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameobject\fixedobstacle">
-      <UniqueIdentifier>{58f499db-3af0-464e-b859-ae3922927563}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gameobject\flag">
       <UniqueIdentifier>{0b03675e-c4cd-40bd-bb32-7db3bfae7429}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameobject\movingobstacle">
-      <UniqueIdentifier>{069a2e75-9744-42d9-9b24-fd9279a81590}</UniqueIdentifier>
     </Filter>
     <Filter Include="scene\game">
       <UniqueIdentifier>{6980ff91-6c07-40e0-8169-f0bce5c8efd8}</UniqueIdentifier>
@@ -54,6 +48,9 @@
     </Filter>
     <Filter Include="gameobject\map">
       <UniqueIdentifier>{32c3dcf6-b4de-4ea2-a908-7a8e6d039479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameobject\obstacle">
+      <UniqueIdentifier>{069a2e75-9744-42d9-9b24-fd9279a81590}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,10 +85,7 @@
       <Filter>scene\title</Filter>
     </ClCompile>
     <ClCompile Include="movingobstacle.cpp">
-      <Filter>gameobject\movingobstacle</Filter>
-    </ClCompile>
-    <ClCompile Include="fixedobstacle.cpp">
-      <Filter>gameobject\fixedobstacle</Filter>
+      <Filter>gameobject\obstacle</Filter>
     </ClCompile>
     <ClCompile Include="flag.cpp">
       <Filter>gameobject\flag</Filter>
@@ -101,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="map.cpp">
       <Filter>gameobject\map</Filter>
+    </ClCompile>
+    <ClCompile Include="fixedobstacle.cpp">
+      <Filter>gameobject\obstacle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,10 +135,7 @@
       <Filter>scene\title</Filter>
     </ClInclude>
     <ClInclude Include="movingobstacle.h">
-      <Filter>gameobject\movingobstacle</Filter>
-    </ClInclude>
-    <ClInclude Include="fixedobstacle.h">
-      <Filter>gameobject\fixedobstacle</Filter>
+      <Filter>gameobject\obstacle</Filter>
     </ClInclude>
     <ClInclude Include="flag.h">
       <Filter>gameobject\flag</Filter>
@@ -151,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="map.h">
       <Filter>gameobject\map</Filter>
+    </ClInclude>
+    <ClInclude Include="fixedobstacle.h">
+      <Filter>gameobject\obstacle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

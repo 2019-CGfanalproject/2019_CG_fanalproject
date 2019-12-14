@@ -16,14 +16,25 @@ class CTitleScene : public CScene
 	GLuint projection_location;
 	GLuint object_color_location;
 
+	GLuint light_pos_location;
+	GLuint light_color_location;
+
+
+
 	mat4 transform = mat4(1);
+	mat4 view = mat4(1);
+	mat4 projection = mat4(1);
+
+	vec3 camera_pos = vec3(0, 0, 1);
+	vec3 camera_center = vec3(0, 0, 0);
+	vec3 camera_up = vec3(0, 1, 0);
 
 	GLuint title_vao, title_vbo[2];
 	std::vector< glm::vec3 > title_vertex, title_normal;
 	std::vector< glm::vec2 > title_uv;
 
-	int m_mouse_x;
-	int m_mouse_y;
+	float m_mouse_x;
+	float m_mouse_y;
 
 public:
 	CTitleScene();

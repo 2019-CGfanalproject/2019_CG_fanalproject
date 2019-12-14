@@ -10,12 +10,11 @@ out vec4 FragColor;
 uniform vec3 lightPos;
 uniform vec3 lightColor;
 uniform vec3 objectColor;
-uniform vec3 ambientLightColor;
 
 void main()
 {
 	vec3 ambientLight =  vec3(0.2f);
-	vec3 ambient = ambientLight*lightColor;
+	vec3 ambient = ambientLight * lightColor;
 
 	vec3 lightDir = normalize(lightPos - FragPos);
 	float diffuseLight = max(dot(Normal,lightDir),0.0);
@@ -32,8 +31,7 @@ void main()
 	//vec3 emissive = emissivelight*lightColor;
 
 
-	vec3 result = (ambient + diffuse)*passColor;
+	vec3 result = (ambient + diffuse) * passColor;
 	
 	FragColor=vec4(result,1.0f);
-
 };
