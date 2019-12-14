@@ -70,16 +70,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\tlsvl\Desktop\산기대 파일\2019 2학기\컴퓨터그래픽스\최종프로젝트\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17763.0\um\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>C:\Users\tlsvl\Desktop\산기대 파일\2019 2학기\컴퓨터그래픽스\최종프로젝트\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17763.0\um\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\Users\tlsvl\Desktop\산기대 파일\2019 2학기\컴퓨터그래픽스\최종프로젝트\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17763.0\um\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>C:\Users\tlsvl\Desktop\산기대 파일\2019 2학기\컴퓨터그래픽스\최종프로젝트\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17763.0\um\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Users\tlsvl\Documents\GitHub\2019_CG_fanalproject\To_the_Light\To_the_Light\gl;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

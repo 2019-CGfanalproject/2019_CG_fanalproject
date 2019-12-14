@@ -20,7 +20,6 @@ CAircraft::CAircraft()
 	glEnableVertexAttribArray(1);
 
 
-	direction = vec3{ sin(radians(angle)) , 0 ,  cos(radians(angle)) };
 
 }
 
@@ -39,7 +38,8 @@ void CAircraft::draw()
 }
 
 void CAircraft::update(std::chrono::milliseconds framtime)
-{
+{	
+	direction = vec3{ sin(radians(angle)) , 0 ,  cos(radians(angle)) };
 	// glm:rotate_world = glm::rotate(rotate_world, glm::radians(-angle), glm::vec3{ 0,1,0 });
 	translate_world = glm::translate(glm::mat4(1), pos);
 
@@ -53,18 +53,18 @@ void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 		pos = pos + direction;
 		break;
 	case A_KEY_DOWN:
-		glm::vec3 left = glm::vec3{ glm::cos(glm::radians(angle - 90)) , 0 ,  glm::sin(glm::radians(angle - 90)) } *0.2f;
+		glm::vec3 left = glm::vec3{ glm::sin(glm::radians(angle + 90)) , 0 ,  glm::cos(glm::radians(angle + 90)) } *0.2f;
 		pos = pos + left;
 		break;
 	case S_KEY_DOWN:
-		pos = pos - direction;
+		pos = pos + (-direction);
 		break;
 	case D_KEY_DOWN:
-		glm::vec3 right = glm::vec3{ glm::cos(glm::radians(angle + 90)) , 0 ,  glm::sin(glm::radians(angle + 90)) } *0.2f;
+		glm::vec3 right = glm::vec3{ glm::sin(glm::radians(angle - 90)) , 0 ,  glm::cos(glm::radians(angle - 90)) } *0.2f;
 		pos = pos + right;
 		break;
 	case SPACE_KEY_DOWN:
-		glm::vec3 up = glm::vec3{ 0 , glm::cos(glm::radians(angle + 90)) ,  glm::sin(glm::radians(angle + 90)) } *0.2f;
+		glm::vec3 up = glm::vec3{ 0 , glm::sin(glm::radians(angle + 90)) ,  glm::cos(glm::radians(angle + 90)) } *0.2f;
 		// pos = pos + up;
 		pos = pos + vec3(0, 0.1, 0);
 
