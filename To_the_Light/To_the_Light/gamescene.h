@@ -19,8 +19,8 @@ class CGameScene : public CScene
 	GLuint veiw_location;
 	GLuint projection_location;
 	GLuint object_color_location;
-
-
+	GLuint light_pos_location;
+	GLuint light_color_location;
 	glm::mat4 projection;
 	glm::mat4 model = scale(glm::mat4(1), glm::vec3(0.5));
 

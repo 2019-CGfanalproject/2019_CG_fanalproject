@@ -14,7 +14,7 @@ uniform vec3 ambientLightColor;
 
 void main()
 {
-	vec3 ambientLight =  vec3(0.2f,0.2f,0.2f);
+	vec3 ambientLight =  vec3(0.2f);
 	vec3 ambient = ambientLight*lightColor;
 
 	vec3 normalVector = Normal;
@@ -29,7 +29,12 @@ void main()
 	float specularColor = max(dot(viewDir,reflectDir),0.0);
 	specularColor = pow(specularColor,shininess);
 	vec3 specular = specularColor*lightColor;
-	vec3 result = (ambient +diffuse + specular)*objectColor;
+
+	//vec3 emissivelight =vec3(1.0f,1.f,1.f);
+	//vec3 emissive = emissivelight*lightColor;
+
+
+	vec3 result = (ambient+diffuse )*passColor;
 	
 	FragColor=vec4(result,1.0f);
 

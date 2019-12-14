@@ -38,7 +38,7 @@ void main(int argc, char** argv)
 		std::cout << "GLEW Initialized" << std::endl;
 
 	
-
+	glEnable(GL_DEPTH_TEST);
 	framework.Initialize();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
