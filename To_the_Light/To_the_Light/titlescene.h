@@ -49,4 +49,8 @@ public:
 	virtual void handle_event(Event a_event, int mouse_x, int mouse_y);
 
 	virtual void release();
+
+	void get_uniform_location();
+
+	void init_title_object();
 };

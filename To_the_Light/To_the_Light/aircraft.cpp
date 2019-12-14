@@ -41,15 +41,13 @@ void CAircraft::update(std::chrono::milliseconds a_frametime)
 {	
 	float frametime = a_frametime.count() / (float)1000;
 
-	if (pos.y > 0) {
-		pos.y -= (gravity * frametime);
-	}
+	pos.y = pos.y + (fly_velocity - gravity) * frametime;
+	pos.y = clamp(pos.y, 0.0f, 9.0f);
+
 	direction = vec3{ sin(radians(angle)) , 0 ,  cos(radians(angle)) };
 	right = cross(up, direction);
 	pos = pos + direction * vec3(velocity * frametime) + 
-		right * vec3(right_velocity * frametime);		// 방향 이동
-
-	pos.y = pos.y + fly_velocity * frametime;
+			    right * vec3(right_velocity * frametime);		// 방향 이동
 
 	translate_world = glm::translate(glm::mat4(1), pos);
 	rotate_world = glm::rotate(mat4(1), radians(angle), glm::vec3{ 0,1,0 });

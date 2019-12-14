@@ -18,6 +18,52 @@ void CTitleScene::initalize(CFramework* p_fw)
 	m_framework = p_fw;
 
 	shader_id = *m_framework->get_shader_id();
+
+	get_uniform_location();
+
+	init_title_object();
+
+	glUniform3f(light_color_location, 1, 1, 1);
+	glUniform3f(light_pos_location, 0, 0, 0.5);
+
+
+
+	view = lookAt(camera_pos, camera_center, camera_up);
+	glUniformMatrix4fv(veiw_location, 1, GL_FALSE, glm::value_ptr(view));
+	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
+	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
+}
+
+void CTitleScene::draw()
+{
+	glBindVertexArray(title_vao);
+	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(transform));
+	glUniform3f(object_color_location, 1, 1, 0);
+	glDrawArrays(GL_TRIANGLES, 0, title_vertex.size());
+}
+
+void CTitleScene::update(std::chrono::milliseconds framtime)
+{
+	glUniform3f(light_pos_location, m_mouse_x, m_mouse_y, 0);
+}
+
+void CTitleScene::handle_event(Event a_event, int mouse_x, int mouse_y)
+{
+	if (a_event == Event::RETURN_KEY_DOWN)
+		m_framework->enter_scene(Scene::GAME);
+
+	m_mouse_x = mouse_x / (float)CLIENT_WIDTH * 2 - 1;
+	m_mouse_y = -(mouse_y / (float)CLIENT_HIEGHT * 2 - 1);
+}
+
+void CTitleScene::release()
+{
+	glClearColor(0, 0, 0.5, 1.0f);
+	glutWarpPointer(CLIENT_WIDTH / 2, CLIENT_HIEGHT / 2);
+}
+
+void CTitleScene::get_uniform_location()
+{
 	model_location = glGetUniformLocation(shader_id, "modelTransform");
 	veiw_location = glGetUniformLocation(shader_id, "viewTransform");
 	projection_location = glGetUniformLocation(shader_id, "projectionTransform");
@@ -25,10 +71,11 @@ void CTitleScene::initalize(CFramework* p_fw)
 
 	light_pos_location = glGetUniformLocation(shader_id, "lightPos"); //--- lightPos 값 전달
 	light_color_location = glGetUniformLocation(shader_id, "lightColor"); //--- lightColor 값 전달
-	glUniform3f(light_color_location, 1, 1, 1);
-	glUniform3f(light_pos_location, 0, 0, 0.5);
 
+}
 
+void CTitleScene::init_title_object()
+{
 	loadObj("Resource/Object/Title.obj", title_vertex, title_normal, title_uv);
 
 	glGenVertexArrays(1, &title_vao);
@@ -47,38 +94,4 @@ void CTitleScene::initalize(CFramework* p_fw)
 	glEnableVertexAttribArray(1);
 
 	transform = rotate(mat4(1), radians(90.0f), vec3(1, 0, 0)) * scale(mat4(1), vec3(0.5));
-
-	view = lookAt(camera_pos, camera_center, camera_up);
-	glUniformMatrix4fv(veiw_location, 1, GL_FALSE, glm::value_ptr(view));
-	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
-	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
-}
-
-void CTitleScene::draw()
-{
-	glBindVertexArray(title_vao);
-	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(transform));
-	glUniform3f(object_color_location, 1, 1, 0);
-	glDrawArrays(GL_TRIANGLES, 0, title_vertex.size());
-}
-
-void CTitleScene::update(std::chrono::milliseconds framtime)
-{
-}
-
-void CTitleScene::handle_event(Event a_event, int mouse_x, int mouse_y)
-{
-	if (a_event == Event::RETURN_KEY_DOWN)
-		m_framework->enter_scene(Scene::GAME);
-
-	m_mouse_x = mouse_x / (float)CLIENT_WIDTH * 2 - 1;
-	m_mouse_y = (CLIENT_HIEGHT - mouse_y) / (float)CLIENT_HIEGHT * 2 - 1;
-
-	glUniform3f(light_pos_location, m_mouse_x, m_mouse_y, -1);
-}
-
-void CTitleScene::release()
-{
-	glClearColor(0, 0, 0.5, 1.0f);
-	glutWarpPointer(CLIENT_WIDTH / 2, CLIENT_HIEGHT / 2);
 }
