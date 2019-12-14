@@ -1,6 +1,6 @@
 #pragma once
+#include "pch.h"
 #include "gameobj.h"
-#include <vector>
 
 using namespace glm;
 
@@ -13,9 +13,9 @@ class CAircraft: public CGameObject
 	float view_y;
 
 	glm::vec3 pos = { 0,0,0 };
-	glm::vec3 direction = glm::vec3{ glm::cos(glm::radians(angle)) , 0 ,  glm::sin(glm::radians(angle)) } *0.2f;
+	glm::vec3 direction;
 	glm::vec3 height;
-	float angle = 270;
+	float angle = 0;
 
 	glm::mat4 transform = glm::mat4{ 1.0, };
 	glm::mat4 rotate_world = mat4(1);
@@ -37,5 +37,8 @@ public:
 
 	virtual void update(std::chrono::milliseconds framtime);
 
-};
+	vec3 get_direction();
 
+	vec3 get_pos();
+
+};

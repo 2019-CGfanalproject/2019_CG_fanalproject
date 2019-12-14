@@ -32,16 +32,16 @@ void CGameScene::initalize(CFramework* p_fw)
 	init_map();
 
 	m_aircraft = new CAircraft(model_location);
-	m_camera = new CCamera(veiw_location);
+	m_camera = new CCamera(veiw_location, m_aircraft);
 
 }
 
 void CGameScene::draw()
 {
 	
-	// glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(model));
-	// glBindVertexArray(map_vao);
-	// glDrawArrays(GL_TRIANGLES, 0, map_vertex.size());
+	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(model));
+	glBindVertexArray(map_vao);
+	glDrawArrays(GL_TRIANGLES, 0, map_vertex.size());
 
 	
 	m_aircraft->draw();

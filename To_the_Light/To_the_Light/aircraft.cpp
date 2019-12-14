@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "aircraft.h"
 #include "shader.h"
 
@@ -22,6 +21,9 @@ CAircraft::CAircraft(GLuint model_location)
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(1);
 
+
+	direction = vec3{ sin(radians(angle)) , 0 ,  cos(radians(angle)) };
+
 }
 
 
@@ -44,25 +46,38 @@ void CAircraft::update(std::chrono::milliseconds framtime)
 	transform = translate_world;
 }
 
+
 void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 	switch (a_event) {
 	case W_KEY_DOWN:
-		pos = pos - direction;
+		pos = pos + direction;
 		break;
 	case A_KEY_DOWN:
 		glm::vec3 left = glm::vec3{ glm::cos(glm::radians(angle - 90)) , 0 ,  glm::sin(glm::radians(angle - 90)) } *0.2f;
 		pos = pos + left;
 		break;
 	case S_KEY_DOWN:
-		pos = pos + direction;
+		pos = pos - direction;
 		break;
 	case D_KEY_DOWN:
 		glm::vec3 right = glm::vec3{ glm::cos(glm::radians(angle + 90)) , 0 ,  glm::sin(glm::radians(angle + 90)) } *0.2f;
 		pos = pos + right;
 		break;
-	case SPACE_KEY_UP:
+	case SPACE_KEY_DOWN:
 		glm::vec3 up = glm::vec3{ 0 , glm::cos(glm::radians(angle + 90)) ,  glm::sin(glm::radians(angle + 90)) } *0.2f;
-		pos = pos + up;
+		// pos = pos + up;
+		pos = pos + vec3(0, 0.1, 0);
+
 		break;
 	}
+}
+
+vec3 CAircraft::get_direction()
+{
+	return direction;
+}
+
+vec3 CAircraft::get_pos()
+{
+	return pos;
 }

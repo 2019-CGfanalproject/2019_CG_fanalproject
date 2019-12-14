@@ -6,6 +6,8 @@ layout(location=1) in vec3 vNormal;
 out vec3 FragPos;
 out vec3 Normal;
 out vec3 viewPos;
+
+uniform vec3 object_color;
 uniform mat4 modelTransform;
 uniform mat4 viewTransform;
 uniform mat4 projectionTransform;

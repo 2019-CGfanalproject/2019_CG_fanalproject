@@ -13,9 +13,13 @@ class CGameScene : public CScene
 	CFramework* m_framework{ nullptr };
 
 	GLuint shader_id;
+
 	GLuint model_location;
 	GLuint veiw_location;
 	GLuint projection_location;
+	GLuint object_color_location;
+
+
 	glm::mat4 projection;
 	glm::mat4 model = scale(glm::mat4(1), glm::vec3(0.5));
 
