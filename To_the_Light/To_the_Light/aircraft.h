@@ -11,14 +11,18 @@ class CAircraft: public CGameObject
 	GLuint m_color_location;
 	vec3 m_color = vec3(0, 1, 1);
 
-	float gravity = -0.01;
+	float gravity = 2;
+	float velocity = 0;
+	float right_velocity = 0;
+	float fly_velocity = 0;
 
 	vec3 pos = { 0, 2, 0 };
 	vec3 direction;
+	vec3 up = { 0, 1, 0 };
 	vec3 right;
 	float angle = 0;
 
-	mat4 transform = glm::mat4{ 1.0, };
+	mat4 transform = glm::mat4(1);
 	mat4 rotate_world = mat4(1);
 	mat4 translate_world = mat4(1);
 	

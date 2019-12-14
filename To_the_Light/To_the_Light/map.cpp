@@ -3,7 +3,7 @@
 
 CMap::CMap()
 {
-	loadObj("Resource/Object/map.obj", map_vertex, map_normal, map_uv);
+	loadObj("Resource/Object/map_one_way.obj", map_vertex, map_normal, map_uv);
 
 	glGenVertexArrays(1, &map_vao);
 	glGenBuffers(2, map_vbo);
