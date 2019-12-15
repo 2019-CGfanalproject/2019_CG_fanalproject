@@ -31,8 +31,9 @@ void CMovingObstacle::draw()
 	glDrawArrays(GL_TRIANGLES, 0, vertex.size());
 }
 
-void CMovingObstacle::update(std::chrono::milliseconds framtime)
+void CMovingObstacle::update(std::chrono::milliseconds a_framtime)
 {
+	float frametime = a_framtime.count() / (float)1000;
 }
 
 void CMovingObstacle::set_uniform_pos(GLuint model_location, GLuint color_location, GLuint alpha_location, GLuint emissive_location)
@@ -88,4 +89,9 @@ void CMovingObstacle::init_buffers()
 
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(1);
+}
+
+AABB* CMovingObstacle::get_AABB()
+{
+	return pAABB;
 }

@@ -2,6 +2,8 @@
 #include "gameobj.h"
 #include "pch.h"
 
+#define OBSTACLE_SPEED 2;
+
 using namespace glm;
 
 class CMovingObstacle : public CGameObject
@@ -36,5 +38,7 @@ public:
 	void set_uniform_pos(GLuint model_location, GLuint color_location, GLuint alpha_location, GLuint emissive_location);
 
 	void init_buffers();
+
+	AABB* get_AABB();
 };
 

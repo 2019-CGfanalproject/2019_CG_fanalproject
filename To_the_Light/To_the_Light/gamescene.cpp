@@ -89,6 +89,14 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 
 	glUniform3f(light_pos_location, l_pos.x, l_pos.y + 0.2, l_pos.z);
 
+	for (list<CMovingObstacle*>::iterator it = m_moving_obstacle.begin(); it != m_moving_obstacle.end(); it++) {
+		(*it)->update(frametime);
+		if ((*it)->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
+			m_framework->enter_scene(Scene::GAMEOVER);
+			return;
+		}
+	}
+
 	for (list<CFixedObstacle*>::iterator it = m_obstacles.begin(); it != m_obstacles.end(); it++) {
 		if ((*it)->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
 			m_framework->enter_scene(Scene::GAMEOVER);
@@ -196,9 +204,13 @@ vec3 laydown_cylinder_obstacle_pos[] = {
 	//13°³
 };
 
+vec3 flags_pos[] = {
+	vec3(0, 5, 75),
+};
+
 void CGameScene::create_obstacles()
 {
-	for (int i = 0; i < 11; i++) {
+	for (int i = 0; i < 13; i++) {
 		CFixedObstacle* tmp = new CFixedObstacle(stand_cylinder_obstacle_pos[i], 0);
 		m_obstacles.push_back(tmp);
 	}
