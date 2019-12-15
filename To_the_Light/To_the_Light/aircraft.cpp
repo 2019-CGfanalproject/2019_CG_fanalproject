@@ -2,6 +2,7 @@
 #include "shader.h"
 
 
+
 CAircraft::CAircraft()
 {
 	glGenVertexArrays(1, &vao);
@@ -33,8 +34,19 @@ void CAircraft::draw()
 	glBindVertexArray(vao);
 	glUniformMatrix4fv(m_model_location, 1, GL_FALSE, value_ptr(transform));
 	glUniform3f(m_color_location, m_color.x, m_color.y, m_color.z);
+	glUniform1f(m_emissive_location, emissive_value);
 	
 	glDrawArrays(GL_TRIANGLES, 0, outvertex.size());
+
+	// glUniform3f(m_color_location, 1, 0, 0);
+	// glLineWidth(5);
+	// glBegin(GL_LINE_LOOP);
+	// glVertex3d(bounding_box[0].x, bounding_box[0].y, bounding_box[0].z);
+	// glVertex3d(bounding_box[1].x, bounding_box[1].y, bounding_box[1].z);
+	// glVertex3d(bounding_box[2].x, bounding_box[2].y, bounding_box[2].z);
+	// glVertex3d(bounding_box[3].x, bounding_box[3].y, bounding_box[3].z);
+	// glEnd();
+
 }
 
 void CAircraft::update(std::chrono::milliseconds a_frametime)
@@ -49,12 +61,13 @@ void CAircraft::update(std::chrono::milliseconds a_frametime)
 	pos = pos + direction * vec3(velocity * frametime) + 
 			    right * vec3(right_velocity * frametime);		// 방향 이동
 
+	set_bounding_box();
+
 	translate_world = glm::translate(glm::mat4(1), pos);
 	rotate_world = glm::rotate(mat4(1), radians(angle), glm::vec3{ 0,1,0 });
 
 	transform = translate_world * rotate_world;
 }
-
 
 void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {
 	switch (a_event) {
@@ -114,8 +127,28 @@ vec3 CAircraft::get_pos()
 	return pos;
 }
 
-void CAircraft::set_uniform_location(GLuint model_location, GLuint color_location)
+void CAircraft::set_uniform_location(GLuint model_location, GLuint color_location, GLuint emissive_location)
 {
 	m_model_location = model_location;
 	m_color_location = color_location;
+	m_emissive_location = emissive_location;
+}
+
+vec4* CAircraft::get_vounding_box()
+{
+	return bounding_box;
+}
+
+void CAircraft::add_light()
+{
+	emissive_value += 0.2;
+}
+
+
+void CAircraft::set_bounding_box()
+{
+	bounding_box[0] = translate_world * vec4(0, 0.16, 0.7, 0);
+	bounding_box[1] = translate_world * vec4(-0.5, 0.16, -0.6, 0);
+	bounding_box[2] = translate_world * vec4(0.5, 0.16, -0.6, 0);
+	bounding_box[3] = translate_world * vec4(0, 0, -0.6, 0);
 }

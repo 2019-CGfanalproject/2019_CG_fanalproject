@@ -19,31 +19,32 @@ void CGameScene::initalize(CFramework* p_fw)
 {
 	std::cout << "게임신 시작!" << std::endl;
 	m_framework = p_fw;
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 
 	shader_id = *m_framework->get_shader_id();
-	model_location = glGetUniformLocation(shader_id, "modelTransform");
-	veiw_location = glGetUniformLocation(shader_id, "viewTransform");
-	projection_location = glGetUniformLocation(shader_id, "projectionTransform");
-	object_color_location = glGetUniformLocation(shader_id, "object_color");
-	light_pos_location = glGetUniformLocation(shader_id, "lightPos"); //--- lightPos 값 전달
-	light_color_location = glGetUniformLocation(shader_id, "lightColor"); //--- lightColor 값 전달
-	alpha_location = glGetUniformLocation(shader_id, "alpha");
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glUniform3f(light_color_location, 1.f, 1.0f, 1.0f);
-	glUniform3f(light_pos_location, 1, 1, 1);
+	get_uniform_location();
 
+
+	glUniform3f(light_color_location, 0.5, 0.5, 0.5);
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
 
 	
 	m_map = new CMap();
+	m_map->set_uniform_location(model_location, object_color_location, emissive_location);
+	
 	m_aircraft = new CAircraft();
-	m_camera = new CCamera(veiw_location, m_aircraft);
-	m_flag = new CFlag();
-
-	m_flag->set_uniform_location(model_location, object_color_location, alpha_location);
-	m_aircraft->set_uniform_location(model_location, object_color_location);
-	m_map->set_uniform_location(model_location, object_color_location);
+	m_aircraft->set_uniform_location(model_location, object_color_location, emissive_location);
+	
+	m_camera = new CCamera(m_aircraft);
+	m_camera->set_uniform_location(veiw_location, camera_pos_location);
+	
+	
+	create_flags();
+	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
+		(*it)->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
+	}
 }
 
 void CGameScene::draw()
@@ -51,13 +52,25 @@ void CGameScene::draw()
 	glUniform1f(alpha_location, 1.0);
 	m_map->draw();
 	m_aircraft->draw();
-	m_flag->draw();
+	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
+		(*it)->draw();
+	}
 }
 
 void CGameScene::update(std::chrono::milliseconds frametime)
 {
 	m_aircraft->update(frametime);
 	m_camera->update();
+	vec3 l_pos = m_aircraft->get_pos();
+	glUniform3f(light_pos_location, l_pos.x, l_pos.y + 0.2, l_pos.z);
+
+	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
+		(*it)->update(frametime);
+		if ((*it)->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
+			cout << "지남" << endl;
+			m_aircraft->add_light();
+		}
+	}
 }
 
 void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
@@ -67,4 +80,25 @@ void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 
 void CGameScene::release()
 {
+}
+
+void CGameScene::get_uniform_location()
+{
+	model_location = glGetUniformLocation(shader_id, "modelTransform");
+	veiw_location = glGetUniformLocation(shader_id, "viewTransform");
+	projection_location = glGetUniformLocation(shader_id, "projectionTransform");
+
+	camera_pos_location = glGetUniformLocation(shader_id, "cameraPos");
+	object_color_location = glGetUniformLocation(shader_id, "object_color");
+	light_pos_location = glGetUniformLocation(shader_id, "lightPos");
+	light_color_location = glGetUniformLocation(shader_id, "lightColor");
+	alpha_location = glGetUniformLocation(shader_id, "alpha");
+	emissive_location = glGetUniformLocation(shader_id, "emissive");
+}
+
+void CGameScene::create_flags()
+{
+	CFlag* flag = new CFlag(vec3(0, 3, 5));
+	m_flages.push_back(flag);
+	// 위치값 어디서인가 정의해놓고 만들기
 }

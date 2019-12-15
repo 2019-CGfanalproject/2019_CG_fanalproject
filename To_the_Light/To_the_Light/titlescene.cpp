@@ -26,8 +26,6 @@ void CTitleScene::initalize(CFramework* p_fw)
 	glUniform3f(light_color_location, 1, 1, 1);
 	glUniform3f(light_pos_location, 0, 0, 0.5);
 
-
-
 	view = lookAt(camera_pos, camera_center, camera_up);
 	glUniformMatrix4fv(veiw_location, 1, GL_FALSE, glm::value_ptr(view));
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);

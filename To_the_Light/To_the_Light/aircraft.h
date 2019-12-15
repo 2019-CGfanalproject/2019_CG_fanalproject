@@ -9,9 +9,17 @@ using namespace glm;
 
 class CAircraft: public CGameObject
 {
+	GLuint vao;
+	GLuint vbo[2];
+	std::vector< glm::vec3 > outvertex, outnormal;
+	std::vector< glm::vec2 > outuv;
+
 	GLuint m_model_location;
 	GLuint m_color_location;
+	GLuint m_emissive_location;
+
 	vec3 m_color = vec3(0, 1, 1);
+	float emissive_value = 0;
 
 	float gravity = 2;
 	float velocity = 0;
@@ -24,17 +32,16 @@ class CAircraft: public CGameObject
 	vec3 right;
 	float angle = 0;
 
-	mat4 transform = glm::mat4(1);
 	mat4 rotate_world = mat4(1);
 	mat4 translate_world = mat4(1);
+	mat4 transform = glm::mat4(1);
 	
 	int pre_mouse_x = 0;
 
-	GLuint vao;
-	GLuint vbo[2];
-	std::vector< glm::vec3 > outvertex, outnormal;
-	std::vector< glm::vec2 > outuv;
+	vec4 bounding_box[4];
 
+
+	void set_bounding_box();
 public:
 	CAircraft();
 	~CAircraft();
@@ -49,5 +56,11 @@ public:
 
 	vec3 get_pos();
 
-	void set_uniform_location(GLuint model_location, GLuint color_location);
+	void set_uniform_location(GLuint model_location, GLuint color_location, GLuint emissive_location);
+
+	vec4* get_vounding_box();
+
+	bool path_flag(vec3 flag_pos);
+
+	void add_light();
 };

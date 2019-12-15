@@ -5,7 +5,6 @@ layout(location=1) in vec3 vNormal;
 
 out vec3 FragPos;
 out vec3 Normal;
-out vec3 viewPos;
 out vec3 passColor;
 
 uniform vec3 object_color;
@@ -21,6 +20,5 @@ void main()
 	passColor = object_color;
 
 	FragPos = vec3(modelTransform*vec4(vPos,1.0));
-	viewPos = vec3(gl_Position);
 	Normal = normalize(vNormal);
 }

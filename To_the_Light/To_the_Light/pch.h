@@ -14,6 +14,8 @@
 #include <list>
 #include <vector>
 
+#include "AABB.h"
+
 #pragma comment (lib, "freeglut.lib")
 #pragma comment (lib,"glew32.lib")
 

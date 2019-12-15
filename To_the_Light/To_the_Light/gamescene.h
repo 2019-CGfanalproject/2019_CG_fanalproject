@@ -20,21 +20,25 @@ class CGameScene : public CScene
 	GLuint veiw_location;
 	GLuint projection_location;
 	GLuint object_color_location;
-	GLuint alpha_location;
+
 	GLuint light_pos_location;
 	GLuint light_color_location;
+	GLuint camera_pos_location;
+	GLuint alpha_location;
+	GLuint emissive_location;
+
 
 	glm::mat4 projection;
 	glm::mat4 model = scale(glm::mat4(1), glm::vec3(0.5));
 
 	CCamera* m_camera{ nullptr };
 	CMap* m_map{ nullptr };
-	CFlag* m_flag{ nullptr };
+
 
 
 
 	CAircraft* m_aircraft{ nullptr };
-	std::list< CGameObject*> m_game_object;
+	std::list< CFlag*> m_flages;
 
 public:
 	CGameScene();
@@ -50,4 +54,41 @@ public:
 
 	virtual void release();
 
+	void get_uniform_location();
+
+	void create_flags();
+
+
 };
+
+// bool AABBToAABB(AABB* pAABB1, AABB* pAABB2)
+// {
+// 	//x축에대하여
+// 
+// 	if (pAABB1->Max.x < pAABB2->Min.x ||
+// 
+// 		pAABB1->Min.x < pAABB2->Max.x)
+// 
+// 		return false;
+// 
+// 
+// 	//y축에대하여
+// 
+// 	if (pAABB1->Max.y < pAABB2->Min.y ||
+// 
+// 		pAABB1->Min.y < pAABB2->Max.y)
+// 
+// 		return false;
+// 
+// 
+// 	//z축에대하여
+// 
+// 	if (pAABB1->Max.z < pAABB2->Min.z ||
+// 
+// 		pAABB1->Min.z < pAABB2->Max.z)
+// 
+// 		return false;
+// 
+// 
+// 	return true;
+// }

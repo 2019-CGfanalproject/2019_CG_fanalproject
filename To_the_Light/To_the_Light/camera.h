@@ -7,6 +7,7 @@ class CAircraft;
 class CCamera
 {
 	GLuint m_view_location;
+	GLuint m_camerapos_location;
 
 	CAircraft* target_obj;
 	vec3 distance_to_target = vec3(0, -0.5, 0);
@@ -24,11 +25,13 @@ class CCamera
 	bool god_view = false;
 
 public:
-	CCamera(GLuint view_location, CAircraft* aircraft);
+	CCamera(CAircraft* aircraft);
 	~CCamera();
 
 	void update();
 
 	void handle_event(GLuint, int, int);
+
+	void set_uniform_location(GLuint view_location, GLuint camerapos_location);
 };
 

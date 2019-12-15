@@ -32,14 +32,18 @@ void CMap::update()
 
 void CMap::draw()
 {
+	glBindVertexArray(map_vao);
+
 	glUniformMatrix4fv(m_model_location, 1, GL_FALSE, value_ptr(model));
 	glUniform3f(m_color_location, 1, 1, 0);
-	glBindVertexArray(map_vao);
+	glUniform1f(m_emissive_location, 0);
+
 	glDrawArrays(GL_TRIANGLES, 0, map_vertex.size());
 }
 
-void CMap::set_uniform_location(GLuint model_location, GLuint color_location)
+void CMap::set_uniform_location(GLuint model_location, GLuint color_location, GLuint emissive_location)
 {
 	m_model_location = model_location;
 	m_color_location = color_location;
+	m_emissive_location = emissive_location;
 }

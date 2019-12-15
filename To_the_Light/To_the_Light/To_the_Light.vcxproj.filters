@@ -99,6 +99,9 @@
     <ClCompile Include="fixedobstacle.cpp">
       <Filter>gameobject\obstacle</Filter>
     </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="fixedobstacle.h">
       <Filter>gameobject\obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,35 +3,38 @@
 in vec3 FragPos;
 in vec3 passColor;
 in vec3 Normal;
-in vec3 viewPos;
 out vec4 FragColor;
 
 
 uniform vec3 lightPos;
 uniform vec3 lightColor;
 uniform vec3 objectColor;
+uniform vec3 cameraPos;
 uniform float alpha;
+uniform float emissive;
+
+int shininess = 32;
+
 void main()
 {
-	vec3 ambientLight =  vec3(0.2f);
-	vec3 ambient = ambientLight * lightColor;
+	vec3 ambient_intensity =  vec3(0.2f);
+	vec3 ambient_light = ambient_intensity * lightColor;
 
 	vec3 lightDir = normalize(lightPos - FragPos);
-	float diffuseLight = max(dot(Normal,lightDir),0.0);
-	vec3 diffuse = diffuseLight * lightColor;
-	
-	int shininess = 32;
-	vec3 viewDir = normalize(FragPos - viewPos);
+	vec3 viewDir = normalize(FragPos - cameraPos);
 	vec3 reflectDir = reflect(lightDir, Normal);
-	float specularColor = max(dot(viewDir,reflectDir),0.0);
-	specularColor = pow(specularColor,shininess);
-	vec3 specular = specularColor*lightColor;
 
-	//vec3 emissivelight =vec3(1.0f,1.f,1.f);
-	//vec3 emissive = emissivelight*lightColor;
+	float diffuse_intensity = max(dot(Normal,lightDir),0.0);
+	vec3 diffuse_light = diffuse_intensity * lightColor;
 
+	float specular_intensity = max(dot(viewDir, reflectDir),0.0);
+	specular_intensity = pow(specular_intensity, shininess);
+	vec3 specular_light = specular_intensity * lightColor;
 
-	vec3 result = (ambient + diffuse) * passColor;
+	vec3 emissive_intensity = vec3(emissive);
+	vec3 emissive_light = emissive_intensity * lightColor;
+
+	vec3 result = (ambient_light + diffuse_light + specular_light) * passColor + emissive;
 	
 	FragColor=vec4(result, alpha);
 };

@@ -1,9 +1,8 @@
 #include "camera.h"
 #include "aircraft.h"
 
-CCamera::CCamera(GLuint view_location, CAircraft* aircraft)
+CCamera::CCamera(CAircraft* aircraft)
 {
-	m_view_location = view_location;
 	target_obj = aircraft;
 
 
@@ -34,8 +33,15 @@ void CCamera::update()
 	}
 	view = lookAt(camera_pos, camera_center, camera_up);
 	glUniformMatrix4fv(m_view_location, 1, GL_FALSE, glm::value_ptr(view));
+	glUniform3f(m_camerapos_location, camera_pos.x, camera_pos.y, camera_pos.z);
 }
 
 void CCamera::handle_event(GLuint, int, int)
 {
+}
+
+void CCamera::set_uniform_location(GLuint view_location, GLuint camerapos_location)
+{
+	m_view_location = view_location;
+	m_camerapos_location = camerapos_location;
 }
