@@ -24,8 +24,8 @@ class CTitleScene : public CScene
 	mat4 view = mat4(1);
 	mat4 projection = mat4(1);
 
-	vec3 camera_pos = vec3(0, 0, 1);
-	vec3 camera_center = vec3(0, 0, 0);
+	vec3 camera_pos = vec3(0, 0, 0);
+	vec3 camera_center = vec3(0, 0, -1);
 	vec3 camera_up = vec3(0, 1, 0);
 
 	GLuint title_vao, title_vbo[2];
@@ -35,6 +35,8 @@ class CTitleScene : public CScene
 	GLuint mouse_vao, mouse_vbo[2];
 	std::vector< glm::vec3 > mouse_vertex, mouse_normal;
 	std::vector< glm::vec2 > mouse_uv;
+
+	mat4 cursor_transform;
 
 	float m_mouse_x;
 	float m_mouse_y;

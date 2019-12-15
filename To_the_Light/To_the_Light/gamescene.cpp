@@ -154,8 +154,28 @@ void CGameScene::create_flags()
 	// 위치값 어디서인가 정의해놓고 만들기
 }
 
+vec3 stand_cylinder_obstacle_pos[] = {
+	vec3(0, 0, 35),
+	vec3(2.5, 0, 65),
+	vec3(-2, 0, 83),
+	vec3(3.5, 0, 42),
+	vec3(-3.5, 0, 42),
+	vec3(80, 0, 96),
+	vec3(80, 0, 91),
+	vec3(80, 0, 190.5),
+	vec3(70, 0, 190.5),
+	vec3(60, 0, 192.5),
+	vec3(50, 0, 192.5),
+};
+
+
+
 void CGameScene::create_obstacles()
 {
-	CFixedObstacle* tmp = new CFixedObstacle(vec3(0, 0, 10));
-	m_obstacles.push_back(tmp);
+	for (int i = 0; i < 11; i++) {
+		CFixedObstacle* tmp = new CFixedObstacle(stage1_obstacle_pos[i]);
+		m_obstacles.push_back(tmp);
+	}
 }
+
+

@@ -37,15 +37,6 @@ void CAircraft::draw()
 	glUniform1f(m_emissive_location, emissive_value);
 	
 	glDrawArrays(GL_TRIANGLES, 0, outvertex.size());
-
-	// glUniform3f(m_color_location, 1, 0, 0);
-	// glLineWidth(5);
-	// glBegin(GL_LINE_LOOP);
-	// glVertex3d(bounding_box[0].x, bounding_box[0].y, bounding_box[0].z);
-	// glVertex3d(bounding_box[1].x, bounding_box[1].y, bounding_box[1].z);
-	// glVertex3d(bounding_box[2].x, bounding_box[2].y, bounding_box[2].z);
-	// glVertex3d(bounding_box[3].x, bounding_box[3].y, bounding_box[3].z);
-	// glEnd();
 }
 
 void CAircraft::update(std::chrono::milliseconds a_frametime)

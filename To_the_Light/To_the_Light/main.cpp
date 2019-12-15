@@ -38,7 +38,7 @@ void main(int argc, char** argv)
 	else
 		std::cout << "GLEW Initialized" << std::endl;
 
-	// glutSetCursor(GLUT_CURSOR_NONE);
+	glutSetCursor(GLUT_CURSOR_NONE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);

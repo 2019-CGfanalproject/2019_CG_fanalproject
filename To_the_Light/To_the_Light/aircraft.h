@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "gameobj.h"
 
-#define PLAYER_VELOCITY 3
+#define PLAYER_VELOCITY 15
 
 using namespace glm;
 
@@ -26,7 +26,7 @@ class CAircraft: public CGameObject
 	float right_velocity = 0;
 	float fly_velocity = 0;
 
-	vec3 pos = { 0, 2, 1 };
+	vec3 pos = { 0, 6, 2 };
 	vec3 direction;
 	vec3 up = { 0, 1, 0 };
 	vec3 right;
