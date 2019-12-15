@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "map.h"
 #include "flag.h"
+#include "endflag.h"
 
 CGameScene::CGameScene()
 {
@@ -21,15 +22,12 @@ void CGameScene::initalize(CFramework* p_fw)
 	m_framework = p_fw;
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
 	shader_id = *m_framework->get_shader_id();
 	get_uniform_location();
-
 
 	glUniform3f(light_color_location, 0.5, 0.5, 0.5);
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
-
 	
 	m_map = new CMap();
 	m_map->set_uniform_location(model_location, object_color_location, emissive_location);
@@ -45,6 +43,9 @@ void CGameScene::initalize(CFramework* p_fw)
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		(*it)->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
 	}
+
+	m_end_flag = new CEndFlag(vec3(0, 0, 30));
+	m_end_flag->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
 }
 
 void CGameScene::draw()
@@ -55,6 +56,7 @@ void CGameScene::draw()
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		(*it)->draw();
 	}
+	m_end_flag->draw();
 }
 
 void CGameScene::update(std::chrono::milliseconds frametime)
@@ -71,6 +73,11 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 			m_aircraft->add_light();
 		}
 	}
+
+	if (m_end_flag->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
+		cout << "엔딩신 넘어가라" << endl;
+		m_framework->enter_scene(Scene::CLEAR);
+	}
 }
 
 void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
@@ -80,6 +87,15 @@ void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 
 void CGameScene::release()
 {
+	delete m_camera;
+	delete m_map;
+	delete m_aircraft;
+	delete m_end_flag;
+
+	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
+		delete *it;
+	}
+	glClearColor(0, 0.5, 0, 1.0f);
 }
 
 void CGameScene::get_uniform_location()

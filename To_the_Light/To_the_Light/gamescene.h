@@ -9,6 +9,7 @@ class CAircraft;
 class CCamera;
 class CMap;
 class CFlag;
+class CEndFlag;
 
 class CGameScene : public CScene
 {
@@ -27,17 +28,13 @@ class CGameScene : public CScene
 	GLuint alpha_location;
 	GLuint emissive_location;
 
-
 	glm::mat4 projection;
-	glm::mat4 model = scale(glm::mat4(1), glm::vec3(0.5));
 
 	CCamera* m_camera{ nullptr };
 	CMap* m_map{ nullptr };
 
-
-
-
 	CAircraft* m_aircraft{ nullptr };
+	CEndFlag* m_end_flag{ nullptr };
 	std::list< CFlag*> m_flages;
 
 public:

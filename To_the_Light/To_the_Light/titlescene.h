@@ -18,6 +18,7 @@ class CTitleScene : public CScene
 
 	GLuint light_pos_location;
 	GLuint light_color_location;
+	GLuint alpha_location;
 
 
 

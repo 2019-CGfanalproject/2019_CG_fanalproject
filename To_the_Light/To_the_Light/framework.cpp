@@ -1,9 +1,11 @@
 #include "framework.h"
 #include "pch.h"
+#include "shader.h"
+
 #include "scene.h"
 #include "titlescene.h"
 #include "gamescene.h"
-#include "shader.h"
+#include "clearscene.h"
 
 //#include "endingscene.h"
 
@@ -70,7 +72,8 @@ void CFramework::enter_scene(Scene scene_id)
 	case Scene::GAME :
 		cur_scene = new CGameScene;
 		break;
-	case Scene::ENDING :
+	case Scene::CLEAR :
+		cur_scene = new CClearScene;
 		break;
 	}
 	cur_scene->initalize(this);

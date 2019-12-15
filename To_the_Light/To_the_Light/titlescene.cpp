@@ -25,6 +25,7 @@ void CTitleScene::initalize(CFramework* p_fw)
 
 	glUniform3f(light_color_location, 1, 1, 1);
 	glUniform3f(light_pos_location, 0, 0, 0.5);
+	glUniform1f(alpha_location, 1);
 
 	view = lookAt(camera_pos, camera_center, camera_up);
 	glUniformMatrix4fv(veiw_location, 1, GL_FALSE, glm::value_ptr(view));
@@ -69,7 +70,7 @@ void CTitleScene::get_uniform_location()
 
 	light_pos_location = glGetUniformLocation(shader_id, "lightPos"); //--- lightPos 값 전달
 	light_color_location = glGetUniformLocation(shader_id, "lightColor"); //--- lightColor 값 전달
-
+	alpha_location = glGetUniformLocation(shader_id, "alpha");
 }
 
 void CTitleScene::init_title_object()
