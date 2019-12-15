@@ -7,6 +7,12 @@ CFixedObstacle::CFixedObstacle(vec3 pos)
 {
 	m_pos = pos;
 
+	pAABB = new AABB(
+		m_pos.x + 1, m_pos.x - 1,
+		m_pos.y + 5, m_pos.y - 5,
+		m_pos.z + 1, m_pos.z - 1
+	);
+
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(2, vbo);
 	glBindVertexArray(vao);
@@ -31,6 +37,7 @@ CFixedObstacle::CFixedObstacle(vec3 pos)
 
 CFixedObstacle::~CFixedObstacle()
 {
+	delete pAABB;
 }
 
 void CFixedObstacle::draw()
@@ -38,6 +45,8 @@ void CFixedObstacle::draw()
 	glBindVertexArray(vao);
 	glUniformMatrix4fv(m_model_location, 1, GL_FALSE, value_ptr(transform));
 	glUniform3f(m_color_location, m_color.x, m_color.y, m_color.z);
+	glUniform1f(m_alpha_location, 1);
+	glUniform1f(m_emissive_loction, 0);
 
 	glDrawArrays(GL_TRIANGLES, 0, vertex.size());
 
@@ -47,8 +56,16 @@ void CFixedObstacle::update(std::chrono::milliseconds framtime)
 {
 }
 
-void CFixedObstacle::set_uniform_location(GLuint model_location, GLuint color_location)
+void CFixedObstacle::set_uniform_location
+(GLuint model_location, GLuint color_location, GLuint alpha_location, GLuint emissive_location)
 {
 	m_model_location = model_location;
 	m_color_location = color_location;
+	m_alpha_location = alpha_location;
+	m_emissive_loction = emissive_location;
+}
+
+AABB* CFixedObstacle::get_AABB()
+{
+	return pAABB;
 }

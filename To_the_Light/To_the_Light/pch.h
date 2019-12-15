@@ -35,5 +35,5 @@ typedef enum Event {
 }Event;
 
 typedef enum Scene { 
-	TITLE, GAME, CLEAR
+	TITLE, GAME, CLEAR, GAMEOVER
 }Scene;

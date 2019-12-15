@@ -53,7 +53,7 @@ void CAircraft::update(std::chrono::milliseconds a_frametime)
 	float frametime = a_frametime.count() / (float)1000;
 
 	if (fly_velocity != 0) {
-		fly_rotate = rotate(mat4(1), radians(-10.0f), glm::vec3{ 1,0,0 });
+		fly_rotate = rotate(mat4(1), radians(-15.0f), glm::vec3{ 1,0,0 });
 	}
 	else {
 		fly_rotate = rotate(mat4(1), radians(0.0f), glm::vec3{ 1,0,0 });
