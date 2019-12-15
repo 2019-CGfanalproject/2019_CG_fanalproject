@@ -24,7 +24,7 @@ void CTitleScene::initalize(CFramework* p_fw)
 	init_title_object();
 
 	glUniform3f(light_color_location, 1, 1, 1);
-	glUniform3f(light_pos_location, 0, 0, 0.5);
+	glUniform3f(light_pos_location, 0, 0, 1);
 	glUniform1f(alpha_location, 1);
 
 	view = lookAt(camera_pos, camera_center, camera_up);
@@ -39,6 +39,7 @@ void CTitleScene::draw()
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(transform));
 	glUniform3f(object_color_location, 1, 1, 0);
 	glDrawArrays(GL_TRIANGLES, 0, title_vertex.size());
+
 }
 
 void CTitleScene::update(std::chrono::milliseconds framtime)
@@ -57,7 +58,7 @@ void CTitleScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 
 void CTitleScene::release()
 {
-	glClearColor(0, 0, 0.5, 1.0f);
+	glClearColor(0, 0, 0, 1.0f);
 	glutWarpPointer(CLIENT_WIDTH / 2, CLIENT_HIEGHT / 2);
 }
 
@@ -93,4 +94,25 @@ void CTitleScene::init_title_object()
 	glEnableVertexAttribArray(1);
 
 	transform = rotate(mat4(1), radians(90.0f), vec3(1, 0, 0)) * scale(mat4(1), vec3(0.5));
+
+
+	loadObj("Resource/Object/obstacle_diamond.obj", mouse_vertex, mouse_normal, mouse_uv);
+
+	glGenVertexArrays(1, &mouse_vao);
+	glGenBuffers(2, mouse_vbo);
+
+	glBindVertexArray(mouse_vao);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mouse_vbo[0]);
+	glBufferData(GL_ARRAY_BUFFER, mouse_vertex.size() * sizeof(glm::vec3), &mouse_vertex[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mouse_vbo[1]);
+	glBufferData(GL_ARRAY_BUFFER, mouse_normal.size() * sizeof(glm::vec3), &mouse_normal[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+	glEnableVertexAttribArray(1);
+
+	transform = rotate(mat4(1), radians(90.0f), vec3(1, 0, 0)) * scale(mat4(1), vec3(0.5));
+
 }

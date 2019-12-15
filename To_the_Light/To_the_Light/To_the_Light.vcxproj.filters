@@ -52,6 +52,9 @@
     <Filter Include="scene\clear">
       <UniqueIdentifier>{e77ea638-91a6-424b-a16c-2a958a0fdb96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene\gamover">
+      <UniqueIdentifier>{d6f94491-957b-4e4b-8789-c087299cdc25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="clearscene.cpp">
       <Filter>scene\clear</Filter>
+    </ClCompile>
+    <ClCompile Include="gameoverscene.cpp">
+      <Filter>scene\gamover</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="clearscene.h">
       <Filter>scene\clear</Filter>
+    </ClInclude>
+    <ClInclude Include="gameoverscene.h">
+      <Filter>scene\gamover</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

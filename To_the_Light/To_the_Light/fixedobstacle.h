@@ -8,7 +8,10 @@ class CFixedObstacle : public CGameObject
 {
 	GLuint m_model_location;
 	GLuint m_color_location;
-	vec3 m_color = vec3(1, 0, 0);
+	GLuint m_alpha_location;
+	GLuint m_emissive_loction;
+
+	vec3 m_color = vec3(0, 0, 1);
 
 	vec3 m_pos;
 	mat4 transform;
@@ -17,6 +20,8 @@ class CFixedObstacle : public CGameObject
 	GLuint vbo[2];
 	std::vector< glm::vec3 > vertex, normal;
 	std::vector< glm::vec2 > uv;
+
+	AABB* pAABB;
 
 
 public:
@@ -27,7 +32,8 @@ public:
 
 	virtual void update(std::chrono::milliseconds framtime);
 
-	void set_uniform_location(GLuint model_location, GLuint color_location);
+	void set_uniform_location(GLuint model_location, GLuint color_location, GLuint, GLuint);
 
+	AABB* get_AABB();
 };
 

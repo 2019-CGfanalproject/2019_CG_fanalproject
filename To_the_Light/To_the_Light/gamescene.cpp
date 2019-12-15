@@ -4,8 +4,11 @@
 #include "aircraft.h"
 #include "camera.h"
 #include "map.h"
+
 #include "flag.h"
 #include "endflag.h"
+
+#include "fixedobstacle.h"
 
 CGameScene::CGameScene()
 {
@@ -38,7 +41,11 @@ void CGameScene::initalize(CFramework* p_fw)
 	m_camera = new CCamera(m_aircraft);
 	m_camera->set_uniform_location(veiw_location, camera_pos_location);
 	
-	
+	create_obstacles();
+	for (list<CFixedObstacle*>::iterator it = m_obstacles.begin(); it != m_obstacles.end(); it++) {
+		(*it)->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
+	}
+
 	create_flags();
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		(*it)->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
@@ -53,9 +60,15 @@ void CGameScene::draw()
 	glUniform1f(alpha_location, 1.0);
 	m_map->draw();
 	m_aircraft->draw();
+
+	for (list<CFixedObstacle*>::iterator it = m_obstacles.begin(); it != m_obstacles.end(); it++) {
+		(*it)->draw();
+	}
+	
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		(*it)->draw();
 	}
+
 	m_end_flag->draw();
 }
 
@@ -66,6 +79,13 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 	vec3 l_pos = m_camera->get_pos();
 
 	glUniform3f(light_pos_location, l_pos.x, l_pos.y + 0.2, l_pos.z);
+
+	for (list<CFixedObstacle*>::iterator it = m_obstacles.begin(); it != m_obstacles.end(); it++) {
+		if ((*it)->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
+			m_framework->enter_scene(Scene::GAMEOVER);
+			return;
+		}
+	}
 
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		(*it)->update(frametime);
@@ -79,11 +99,11 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 		m_framework->enter_scene(Scene::CLEAR);
 		return;
 	}
-	
+
 	AABB** walls_aabb = m_map->get_AABB();
 	for (int i = 0; i < 7; i++) {
 		if (walls_aabb[i]->PointerInBox(m_aircraft->get_pos())) {
-			m_framework->enter_scene(Scene::CLEAR);
+			m_framework->enter_scene(Scene::GAMEOVER);
 			return;
 		}
 	}
@@ -132,4 +152,10 @@ void CGameScene::create_flags()
 	CFlag* flag = new CFlag(vec3(0, 3, 5));
 	m_flages.push_back(flag);
 	// 위치값 어디서인가 정의해놓고 만들기
+}
+
+void CGameScene::create_obstacles()
+{
+	CFixedObstacle* tmp = new CFixedObstacle(vec3(0, 0, 10));
+	m_obstacles.push_back(tmp);
 }

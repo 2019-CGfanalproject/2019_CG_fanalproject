@@ -6,6 +6,7 @@
 #include "titlescene.h"
 #include "gamescene.h"
 #include "clearscene.h"
+#include "gameoverscene.h"
 
 //#include "endingscene.h"
 
@@ -74,6 +75,9 @@ void CFramework::enter_scene(Scene scene_id)
 		break;
 	case Scene::CLEAR :
 		cur_scene = new CClearScene;
+		break;
+	case Scene:: GAMEOVER:
+		cur_scene = new CGameOverScene;
 		break;
 	}
 	cur_scene->initalize(this);

@@ -20,8 +20,6 @@ class CTitleScene : public CScene
 	GLuint light_color_location;
 	GLuint alpha_location;
 
-
-
 	mat4 transform = mat4(1);
 	mat4 view = mat4(1);
 	mat4 projection = mat4(1);
@@ -33,6 +31,10 @@ class CTitleScene : public CScene
 	GLuint title_vao, title_vbo[2];
 	std::vector< glm::vec3 > title_vertex, title_normal;
 	std::vector< glm::vec2 > title_uv;
+
+	GLuint mouse_vao, mouse_vbo[2];
+	std::vector< glm::vec3 > mouse_vertex, mouse_normal;
+	std::vector< glm::vec2 > mouse_uv;
 
 	float m_mouse_x;
 	float m_mouse_y;

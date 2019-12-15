@@ -27,8 +27,9 @@ void CCamera::update()
 		camera_up = vec3(0, 0, -1);
 	}
 	else {
-		vec3 target_pos = target_obj->get_direction();
-		camera_pos = target_obj->get_pos() - (target_obj->get_direction() + distance_to_target);
+		vec3 to_target_pos = target_obj->get_direction();
+		to_target_pos = vec3(-to_target_pos.x * 2, 0.5, -to_target_pos.z * 2);
+		camera_pos = target_obj->get_pos() + to_target_pos;
 		// camera_pos = target_obj->get_pos() - vec3(0, -0.2, 1) * distance_to_target;
 		camera_center = target_obj->get_pos();
 	}

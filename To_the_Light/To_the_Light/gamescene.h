@@ -10,6 +10,7 @@ class CCamera;
 class CMap;
 class CFlag;
 class CEndFlag;
+class CFixedObstacle;
 
 class CGameScene : public CScene
 {
@@ -37,6 +38,8 @@ class CGameScene : public CScene
 	CEndFlag* m_end_flag{ nullptr };
 	std::list< CFlag*> m_flages;
 
+	std::list<CFixedObstacle*> m_obstacles;
+
 public:
 	CGameScene();
 	~CGameScene();
@@ -55,7 +58,7 @@ public:
 
 	void create_flags();
 
-
+	void create_obstacles();
 };
 
 // bool AABBToAABB(AABB* pAABB1, AABB* pAABB2)
