@@ -1,7 +1,8 @@
 #include "titlescene.h"
 #include "shader.h"
 #include "framework.h"
-
+#include<mmsystem.h>
+#pragma comment (lib,"winmm")
 CTitleScene::CTitleScene()
 {
 }
@@ -22,6 +23,7 @@ void CTitleScene::initalize(CFramework* p_fw)
 	get_uniform_location();
 
 	init_title_object();
+	PlaySound(TEXT("sound/bgm.wav"), NULL, SND_ASYNC | SND_LOOP);
 
 	glUniform3f(light_color_location, 1, 1, 1);
 	glUniform3f(light_pos_location, 0, 0, 1);
