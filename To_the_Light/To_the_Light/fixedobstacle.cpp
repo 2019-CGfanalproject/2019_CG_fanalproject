@@ -7,11 +7,6 @@ CFixedObstacle::CFixedObstacle(vec3 pos, int state)
 {
 	m_pos = pos;
 
-	pAABB = new AABB(
-		m_pos.x + 1, m_pos.x - 1,
-		m_pos.y + 5, m_pos.y - 5,
-		m_pos.z + 1, m_pos.z - 1
-	);
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(2, vbo);
@@ -33,9 +28,28 @@ CFixedObstacle::CFixedObstacle(vec3 pos, int state)
 
 	if (state == 0) {
 		transform = translate(mat4(1), m_pos);
+		pAABB = new AABB(
+			m_pos.x + 1, m_pos.x - 1,
+			m_pos.y + 10, m_pos.y,
+			m_pos.z + 1, m_pos.z - 1
+		);
+	}
+	else if(state == 1) {
+		transform = translate(mat4(1), m_pos) * rotate(mat4(1), radians(90.0f), vec3(0, 0, 1));
+		pAABB = new AABB(
+			m_pos.x, m_pos.x - 10,
+			m_pos.y + 1, m_pos.y - 1,
+			m_pos.z + 1, m_pos.z - 1
+		);
 	}
 	else {
-		transform = translate(mat4(1), m_pos) * rotate(mat4(1), radians(90.0f), vec3(0, 0, 1));
+		transform = translate(mat4(1), m_pos) * rotate(mat4(1), radians(90.0f), vec3(1, 0, 0));
+		pAABB = new AABB(
+			m_pos.x + 1, m_pos.x - 1,
+			m_pos.y + 1, m_pos.y - 1,
+			m_pos.z + 10, m_pos.z
+		);
+
 	}
 }
 

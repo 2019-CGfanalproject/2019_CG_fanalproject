@@ -100,13 +100,13 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 		return;
 	}
 
-	AABB** walls_aabb = m_map->get_AABB();
-	for (int i = 0; i < 7; i++) {
-		if (walls_aabb[i]->PointerInBox(m_aircraft->get_pos())) {
-			m_framework->enter_scene(Scene::GAMEOVER);
-			return;
-		}
-	}
+	//AABB** walls_aabb = m_map->get_AABB();
+	//for (int i = 0; i < 7; i++) {
+	//	if (walls_aabb[i]->PointerInBox(m_aircraft->get_pos())) {
+	//		m_framework->enter_scene(Scene::GAMEOVER);
+	//		return;
+	//	}
+	//}
 }
 
 void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
@@ -179,6 +179,7 @@ vec3 laydown_cylinder_obstacle_pos[] = {
 	vec3(4,2,52),
 	vec3(4,6,56),
 	vec3(4,8,70),
+
 	vec3(30,7,89),
 	vec3(50,7,89),
 	vec3(20,7,186),
@@ -191,10 +192,15 @@ void CGameScene::create_obstacles()
 		CFixedObstacle* tmp = new CFixedObstacle(stand_cylinder_obstacle_pos[i], 0);
 		m_obstacles.push_back(tmp);
 	}
-	for (int i = 0; i < 13; i++) {
+	for (int i = 0; i < 10; i++) {
 		CFixedObstacle* tmp = new CFixedObstacle(laydown_cylinder_obstacle_pos[i], 1);
 		m_obstacles.push_back(tmp);
 	}
+	for (int i = 10; i < 13; i++) {
+		CFixedObstacle* tmp = new CFixedObstacle(laydown_cylinder_obstacle_pos[i], 2);
+		m_obstacles.push_back(tmp);
+	}
+
 }
 
 
