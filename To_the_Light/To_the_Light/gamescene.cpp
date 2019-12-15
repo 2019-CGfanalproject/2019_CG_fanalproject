@@ -154,18 +154,20 @@ void CGameScene::create_flags()
 	// 위치값 어디서인가 정의해놓고 만들기
 }
 
-vec3 stand_cylinder_obstacle_pos[11] = {
+vec3 stand_cylinder_obstacle_pos[] = {
 	vec3(0, 0, 35),
 	vec3(2.5, 0, 65),
 	vec3(-2, 0, 83),
 	vec3(3.5, 0, 42),
 	vec3(-3.5, 0, 42),
 	vec3(80, 0, 96),
+	vec3(60,0,93.5),
 	vec3(80, 0, 91),
 	vec3(80, 0, 190.5),
 	vec3(70, 0, 190.5),
 	vec3(60, 0, 192.5),
 	vec3(50, 0, 192.5),
+	vec3(90,0,150)
 };
 
 vec3 laydown_cylinder_obstacle_pos[] = {
@@ -179,7 +181,6 @@ vec3 laydown_cylinder_obstacle_pos[] = {
 	vec3(4,2,52),
 	vec3(4,6,56),
 	vec3(4,8,70),
-
 	vec3(30,7,89),
 	vec3(50,7,89),
 	vec3(20,7,186),
