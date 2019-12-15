@@ -20,7 +20,7 @@ void CMap::draw()
 	glBindVertexArray(map_vao);
 
 	glUniformMatrix4fv(m_model_location, 1, GL_FALSE, value_ptr(model));
-	glUniform3f(m_color_location, 1, 1, 0);
+	glUniform3f(m_color_location, 0.3, 0.5, 0.6);
 	glUniform1f(m_emissive_location, 0);
 
 	glDrawArrays(GL_TRIANGLES, 0, map_vertex.size());

@@ -9,6 +9,7 @@
 #include "endflag.h"
 
 #include "fixedobstacle.h"
+#include "movingobstacle.h"
 
 CGameScene::CGameScene()
 {
@@ -45,6 +46,10 @@ void CGameScene::initalize(CFramework* p_fw)
 	for (list<CFixedObstacle*>::iterator it = m_obstacles.begin(); it != m_obstacles.end(); it++) {
 		(*it)->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
 	}
+	for (list<CMovingObstacle*>::iterator it = m_moving_obstacle.begin(); it != m_moving_obstacle.end(); it++) {
+		(*it)->set_uniform_pos(model_location, object_color_location, alpha_location, emissive_location);
+	}
+
 
 	create_flags();
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
@@ -64,7 +69,11 @@ void CGameScene::draw()
 	for (list<CFixedObstacle*>::iterator it = m_obstacles.begin(); it != m_obstacles.end(); it++) {
 		(*it)->draw();
 	}
-	
+
+	for (list<CMovingObstacle*>::iterator it = m_moving_obstacle.begin(); it != m_moving_obstacle.end(); it++) {
+		(*it)->draw();
+	}
+
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		(*it)->draw();
 	}
@@ -202,6 +211,8 @@ void CGameScene::create_obstacles()
 		m_obstacles.push_back(tmp);
 	}
 
+	CMovingObstacle* tmp = new CMovingObstacle(vec3(0, 5, 5), 0);
+	m_moving_obstacle.push_back(tmp);
 }
 
 

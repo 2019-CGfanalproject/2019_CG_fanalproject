@@ -21,8 +21,8 @@ void CTitleScene::initalize(CFramework* p_fw)
 	shader_id = *m_framework->get_shader_id();
 
 	get_uniform_location();
-
 	init_title_object();
+
 	PlaySound(TEXT("sound/bgm.wav"), NULL, SND_ASYNC | SND_LOOP);
 
 	glUniform3f(light_color_location, 1, 1, 1);
@@ -39,7 +39,7 @@ void CTitleScene::draw()
 {
 	glBindVertexArray(title_vao);
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(transform));
-	glUniform3f(object_color_location, 1, 1, 0);
+	glUniform3f(object_color_location, 0.3, 0.5, 0.8);
 	glDrawArrays(GL_TRIANGLES, 0, title_vertex.size());
 
 	glBindVertexArray(mouse_vao);

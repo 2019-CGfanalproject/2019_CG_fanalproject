@@ -16,7 +16,7 @@ class CMovingObstacle : public CGameObject
 	vec3 m_color = vec3(0, 0, 1);
 
 	vec3 m_pos;
-	mat4 transform;
+	mat4 transform = mat4(1);
 
 	GLuint vao;
 	GLuint vbo[2];
@@ -32,6 +32,8 @@ public:
 	virtual void draw();
 
 	virtual void update(std::chrono::milliseconds framtime);
+
+	void set_uniform_pos(GLuint model_location, GLuint color_location, GLuint alpha_location, GLuint emissive_location);
 
 	void init_buffers();
 };

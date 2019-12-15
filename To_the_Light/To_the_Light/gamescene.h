@@ -11,6 +11,8 @@ class CMap;
 class CFlag;
 class CEndFlag;
 class CFixedObstacle;
+class CMovingObstacle;
+
 
 class CGameScene : public CScene
 {
@@ -39,6 +41,7 @@ class CGameScene : public CScene
 	std::list< CFlag*> m_flages;
 
 	std::list<CFixedObstacle*> m_obstacles;
+	std::list<CMovingObstacle*> m_moving_obstacle;
 
 public:
 	CGameScene();
