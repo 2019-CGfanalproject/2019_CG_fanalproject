@@ -15,6 +15,8 @@ class CMap
 	std::vector< glm::vec3 > map_vertex, map_normal;
 	std::vector< glm::vec2 > map_uv;
 
+	AABB* wall_aabbs[7];
+
 public:
 	CMap();
 	~CMap();
@@ -25,5 +27,11 @@ public:
 
 	void set_uniform_location
 	(GLuint model_location, GLuint color_location, GLuint emissive_location);
+
+	void init_buffers();
+
+	AABB** get_AABB();
+
+	void set_walls_aabb();
 };
 

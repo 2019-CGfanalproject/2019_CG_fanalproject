@@ -33,5 +33,7 @@ public:
 	void handle_event(GLuint, int, int);
 
 	void set_uniform_location(GLuint view_location, GLuint camerapos_location);
+
+	vec3 get_pos();
 };
 

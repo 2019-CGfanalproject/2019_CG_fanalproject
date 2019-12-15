@@ -12,7 +12,7 @@ CClearScene::~CClearScene()
 void CClearScene::initalize(CFramework* framework)
 {
 	m_framework = framework;
-	std::cout << "엔딩신" << std::endl;
+	std::cout << "클리어" << std::endl;
 }
 
 void CClearScene::draw()

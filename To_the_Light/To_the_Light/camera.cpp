@@ -27,6 +27,7 @@ void CCamera::update()
 		camera_up = vec3(0, 0, -1);
 	}
 	else {
+		vec3 target_pos = target_obj->get_direction();
 		camera_pos = target_obj->get_pos() - (target_obj->get_direction() + distance_to_target);
 		// camera_pos = target_obj->get_pos() - vec3(0, -0.2, 1) * distance_to_target;
 		camera_center = target_obj->get_pos();
@@ -44,4 +45,9 @@ void CCamera::set_uniform_location(GLuint view_location, GLuint camerapos_locati
 {
 	m_view_location = view_location;
 	m_camerapos_location = camerapos_location;
+}
+
+vec3 CCamera::get_pos()
+{
+	return camera_pos;
 }

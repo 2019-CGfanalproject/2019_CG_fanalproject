@@ -14,6 +14,7 @@ GLvoid char_key_up(unsigned char key, int x, int y);
 
 GLvoid Timer(int value);
 GLvoid Mouse(int button, int state, int x, int y);
+GLvoid MouseEntry(int state);
 GLvoid Motion(int x, int y);
 
 void main(int argc, char** argv)
@@ -37,7 +38,7 @@ void main(int argc, char** argv)
 	else
 		std::cout << "GLEW Initialized" << std::endl;
 
-	glutSetCursor(GLUT_CURSOR_NONE);
+	// glutSetCursor(GLUT_CURSOR_NONE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
@@ -55,6 +56,7 @@ void main(int argc, char** argv)
 	glutMouseFunc(Mouse);
 	// glutMotionFunc(Motion);
 	glutPassiveMotionFunc(Motion);
+	glutEntryFunc(MouseEntry);
 
 	glutMainLoop();
 
@@ -194,6 +196,13 @@ GLvoid Mouse(int button, int state, int x, int y)
 	case GLUT_MIDDLE_BUTTON:
 		break;
 	}
+}
+
+GLvoid MouseEntry(int state)
+{
+	// if (state == GLUT_LEFT)
+	// 	cout << "¾È" << endl;
+	// else cout << "¹Û" << endl;
 }
 
 GLvoid Motion(int x, int y)

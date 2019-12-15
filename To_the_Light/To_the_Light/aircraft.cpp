@@ -9,7 +9,7 @@ CAircraft::CAircraft()
 	glGenBuffers(2, vbo);
 	glBindVertexArray(vao);
 	
-	loadObj("Resource/Object/aircraft.obj", outvertex, outnormal, outuv);
+	loadObj("Resource/Object/aircraft_bear.obj", outvertex, outnormal, outuv);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glBufferData(GL_ARRAY_BUFFER, outvertex.size() * sizeof(glm::vec3), &outvertex[0], GL_STATIC_DRAW);
@@ -46,27 +46,32 @@ void CAircraft::draw()
 	// glVertex3d(bounding_box[2].x, bounding_box[2].y, bounding_box[2].z);
 	// glVertex3d(bounding_box[3].x, bounding_box[3].y, bounding_box[3].z);
 	// glEnd();
-
 }
 
 void CAircraft::update(std::chrono::milliseconds a_frametime)
 {	
 	float frametime = a_frametime.count() / (float)1000;
 
+	if (fly_velocity != 0) {
+		fly_rotate = rotate(mat4(1), radians(-10.0f), glm::vec3{ 1,0,0 });
+	}
+	else {
+		fly_rotate = rotate(mat4(1), radians(0.0f), glm::vec3{ 1,0,0 });
+	}
 	pos.y = pos.y + (fly_velocity - gravity) * frametime;
-	pos.y = clamp(pos.y, 0.0f, 9.0f);
+	pos.y = clamp(pos.y, -1.0f, 9.0f);
 
 	direction = vec3{ sin(radians(angle)) , 0 ,  cos(radians(angle)) };
 	right = cross(up, direction);
 	pos = pos + direction * vec3(velocity * frametime) + 
 			    right * vec3(right_velocity * frametime);		// 방향 이동
 
-	set_bounding_box();
+	// set_bounding_box();
 
 	translate_world = glm::translate(glm::mat4(1), pos);
-	rotate_world = glm::rotate(mat4(1), radians(angle), glm::vec3{ 0,1,0 });
+	rotate_world = rotate(mat4(1), radians(angle), glm::vec3{ 0,1,0 });
 
-	transform = translate_world * rotate_world;
+	transform = translate_world * rotate_world * fly_rotate;
 }
 
 void CAircraft::handle_event(Event a_event, int mouse_x, int mouse_y) {

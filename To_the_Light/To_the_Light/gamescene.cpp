@@ -44,7 +44,7 @@ void CGameScene::initalize(CFramework* p_fw)
 		(*it)->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
 	}
 
-	m_end_flag = new CEndFlag(vec3(0, 0, 30));
+	m_end_flag = new CEndFlag(vec3(0, 0, 194 - 3.5));
 	m_end_flag->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
 }
 
@@ -63,7 +63,8 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 {
 	m_aircraft->update(frametime);
 	m_camera->update();
-	vec3 l_pos = m_aircraft->get_pos();
+	vec3 l_pos = m_camera->get_pos();
+
 	glUniform3f(light_pos_location, l_pos.x, l_pos.y + 0.2, l_pos.z);
 
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
@@ -75,13 +76,27 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 	}
 
 	if (m_end_flag->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
-		cout << "엔딩신 넘어가라" << endl;
 		m_framework->enter_scene(Scene::CLEAR);
+		return;
+	}
+	
+	AABB** walls_aabb = m_map->get_AABB();
+	for (int i = 0; i < 7; i++) {
+		if (walls_aabb[i]->PointerInBox(m_aircraft->get_pos())) {
+			m_framework->enter_scene(Scene::CLEAR);
+			return;
+		}
 	}
 }
 
 void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
 {
+	// if (mouse_x > CLIENT_WIDTH - 10) {
+	// 	glutWarpPointer(10, CLIENT_HIEGHT / 2);
+	// }
+	// if (mouse_x < 10) {
+	// 	glutWarpPointer(CLIENT_WIDTH - 10, CLIENT_HIEGHT / 2);
+	// }
 	m_aircraft->handle_event(a_event,  mouse_x, mouse_y);
 }
 
@@ -95,7 +110,7 @@ void CGameScene::release()
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		delete *it;
 	}
-	glClearColor(0, 0.5, 0, 1.0f);
+	glClearColor(0, 0, 0, 1.0f);
 }
 
 void CGameScene::get_uniform_location()

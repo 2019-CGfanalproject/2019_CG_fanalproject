@@ -33,6 +33,7 @@ class CAircraft: public CGameObject
 	float angle = 0;
 
 	mat4 rotate_world = mat4(1);
+	mat4 fly_rotate = mat4(1);
 	mat4 translate_world = mat4(1);
 	mat4 transform = glm::mat4(1);
 	
