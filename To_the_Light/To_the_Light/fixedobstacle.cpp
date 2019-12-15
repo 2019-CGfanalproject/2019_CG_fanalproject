@@ -2,8 +2,8 @@
 #include "shader.h"
 
 
-
-CFixedObstacle::CFixedObstacle(vec3 pos)
+// state 0: stand
+CFixedObstacle::CFixedObstacle(vec3 pos, int state)
 {
 	m_pos = pos;
 
@@ -31,7 +31,12 @@ CFixedObstacle::CFixedObstacle(vec3 pos)
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(1);
 
-	transform = translate(mat4(1), m_pos);
+	if (state == 0) {
+		transform = translate(mat4(1), m_pos);
+	}
+	else {
+		transform = translate(mat4(1), m_pos) * rotate(mat4(1), radians(90.0f), vec3(0, 0, 1));
+	}
 }
 
 

@@ -154,7 +154,7 @@ void CGameScene::create_flags()
 	// 위치값 어디서인가 정의해놓고 만들기
 }
 
-vec3 stand_cylinder_obstacle_pos[] = {
+vec3 stand_cylinder_obstacle_pos[11] = {
 	vec3(0, 0, 35),
 	vec3(2.5, 0, 65),
 	vec3(-2, 0, 83),
@@ -181,14 +181,18 @@ vec3 laydown_cylinder_obstacle_pos[] = {
 	vec3(4,8,70),
 	vec3(30,7,89),
 	vec3(50,7,89),
-	vec3(20,7,186)
+	vec3(20,7,186),
 	//13개
 };
 
 void CGameScene::create_obstacles()
 {
 	for (int i = 0; i < 11; i++) {
-		CFixedObstacle* tmp = new CFixedObstacle(stand_cylinder_obstacle_pos[i]);
+		CFixedObstacle* tmp = new CFixedObstacle(stand_cylinder_obstacle_pos[i], 0);
+		m_obstacles.push_back(tmp);
+	}
+	for (int i = 0; i < 13; i++) {
+		CFixedObstacle* tmp = new CFixedObstacle(laydown_cylinder_obstacle_pos[i], 1);
 		m_obstacles.push_back(tmp);
 	}
 }

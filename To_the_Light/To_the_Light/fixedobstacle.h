@@ -25,7 +25,7 @@ class CFixedObstacle : public CGameObject
 
 
 public:
-	CFixedObstacle(vec3 pos);
+	CFixedObstacle(vec3 pos, int state);
 	~CFixedObstacle();
 
 	virtual void draw();
