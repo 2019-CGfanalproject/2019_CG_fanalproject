@@ -2,10 +2,14 @@
 
 layout(location=0) in vec3 vPos;
 layout(location=1) in vec3 vNormal;
+layout(location=2) in vec2 vUV;
+
 
 out vec3 FragPos;
 out vec3 Normal;
 out vec3 passColor;
+out vec2 UV;
+
 
 uniform vec3 object_color;
 uniform mat4 modelTransform;
@@ -21,4 +25,5 @@ void main()
 
 	FragPos = vec3(modelTransform*vec4(vPos,1.0));
 	Normal = normalize(vNormal);
+	UV = vUV;
 }

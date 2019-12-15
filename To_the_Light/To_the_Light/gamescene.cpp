@@ -168,12 +168,27 @@ vec3 stand_cylinder_obstacle_pos[] = {
 	vec3(50, 0, 192.5),
 };
 
-
+vec3 laydown_cylinder_obstacle_pos[] = {
+	vec3(4,0,15),
+	vec3(4,8,15),
+	vec3(4,4,25),
+	vec3(4,2,30),
+	vec3(4,2,42),
+	vec3(4,9,42),
+	vec3(4,4,47),
+	vec3(4,2,52),
+	vec3(4,6,56),
+	vec3(4,8,70),
+	vec3(30,7,89),
+	vec3(50,7,89),
+	vec3(20,7,186)
+	//13°³
+};
 
 void CGameScene::create_obstacles()
 {
 	for (int i = 0; i < 11; i++) {
-		CFixedObstacle* tmp = new CFixedObstacle(stage1_obstacle_pos[i]);
+		CFixedObstacle* tmp = new CFixedObstacle(stand_cylinder_obstacle_pos[i]);
 		m_obstacles.push_back(tmp);
 	}
 }

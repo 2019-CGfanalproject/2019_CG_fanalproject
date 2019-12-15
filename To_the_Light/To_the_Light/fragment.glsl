@@ -3,6 +3,7 @@
 in vec3 FragPos;
 in vec3 passColor;
 in vec3 Normal;
+in vec2 UV;
 out vec4 FragColor;
 
 
@@ -12,6 +13,7 @@ uniform vec3 objectColor;
 uniform vec3 cameraPos;
 uniform float alpha;
 uniform float emissive;
+uniform sampler2D myTexture;
 
 int shininess = 32;
 
@@ -34,6 +36,7 @@ void main()
 	vec3 emissive_intensity = vec3(emissive);
 	vec3 emissive_light = emissive_intensity * lightColor;
 
+//	vec3 result = (ambient_light + diffuse_light + specular_light) * texture(myTexture,UV).rgb + emissive;
 	vec3 result = (ambient_light + diffuse_light + specular_light) * passColor + emissive;
 	
 	FragColor=vec4(result, alpha);
