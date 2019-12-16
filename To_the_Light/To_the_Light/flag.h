@@ -24,6 +24,7 @@ class CFlag : public CGameObject
 
 	AABB* pAABB;
 
+	bool pass_flag = false;
 
 public:
 	CFlag(vec3 pos);
@@ -41,5 +42,13 @@ public:
 	vec3 get_pos();
 
 	AABB* get_AABB();
+
+	void check_pass() {
+		pass_flag = true;
+	}
+
+	bool get_pass() {
+		return pass_flag;
+	}
 };
 

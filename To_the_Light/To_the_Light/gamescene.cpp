@@ -1,5 +1,6 @@
 #include "gamescene.h"
 #include "framework.h"
+#include "shader.h"
 #include "gameobj.h"
 #include "aircraft.h"
 #include "camera.h"
@@ -142,10 +143,30 @@ void CGameScene::initalize(CFramework* p_fw)
 	m_framework = p_fw;
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	loadObj("Resource/Object/sphere.obj", snow_vertex, snow_normal, snow_uv);
+
+	glGenVertexArrays(1, &snow_vao);
+	glGenBuffers(2, snow_vbo);
+
+	glBindVertexArray(snow_vao);
+
+	glBindBuffer(GL_ARRAY_BUFFER, snow_vbo[0]);
+	glBufferData(GL_ARRAY_BUFFER, snow_vertex.size() * sizeof(glm::vec3), &snow_vertex[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, snow_vbo[1]);
+	glBufferData(GL_ARRAY_BUFFER, snow_normal.size() * sizeof(glm::vec3), &snow_normal[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+	glEnableVertexAttribArray(1);
+
+
+
+
 	shader_id = *m_framework->get_shader_id();
 	get_uniform_location();
-
-	glUniform3f(light_color_location, 0.5, 0.5, 0.5);
+	glm::vec3 light_color = glm::vec3(0.2);
+	glUniform3f(light_color_location, light_color.x, light_color.y, light_color.z);
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
 	
@@ -172,8 +193,20 @@ void CGameScene::initalize(CFramework* p_fw)
 		(*it)->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
 	}
 
-	m_end_flag = new CEndFlag(vec3(0, 0, 194 - 3.5));
+	m_end_flag = new CEndFlag(vec3(0, 5, 194 - 3.5));
 	m_end_flag->set_uniform_location(model_location, object_color_location, alpha_location, emissive_location);
+
+	vec3 air_pos = m_aircraft->get_pos();
+	for (int i = 0; i < SNOW_NUM; i++) {
+		snow_pos[i] = vec3(
+			air_pos.x + rand() / (float)RAND_MAX * 4 - 2,
+			air_pos.y + rand() / (float)RAND_MAX * 4 - 2,
+			air_pos.z + rand() / (float)RAND_MAX * 4 - 2
+		);
+
+		snow_speed[i] = (rand() % 5 + 1) * 0.3;
+	}
+
 }
 
 void CGameScene::draw()
@@ -190,15 +223,39 @@ void CGameScene::draw()
 		(*it)->draw();
 	}
 
+	glBindVertexArray(snow_vao);
+	glUniform3f(object_color_location, 1, 1, 1);
+
+	for (int i = 0; i < 50; i++) {
+		glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(snow_transform[i]));
+		glDrawArrays(GL_TRIANGLES, 0, snow_vertex.size());
+	}
+
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		(*it)->draw();
 	}
 
+
 	m_end_flag->draw();
+
+
+
+
 }
 
 void CGameScene::update(std::chrono::milliseconds frametime)
 {
+	vec3 air_pos = m_aircraft->get_pos();
+	for (int i = 0; i < SNOW_NUM; i++) {
+		if (snow_pos[i].y < air_pos.y - 4) snow_pos[i].y = air_pos.y + 4;
+		if (snow_pos[i].x > air_pos.x + 4) snow_pos[i].x = air_pos.x - 4;
+
+		snow_pos[i] += snow_dir * snow_speed[i] * vec3(frametime.count() / (float)1000);
+		snow_transform[i] =
+			translate(mat4(1), vec3(snow_pos[i].x, snow_pos[i].y, air_pos.z + snow_pos[i].z)) *
+			scale(mat4(1), vec3(0.04));
+	}
+
 	m_aircraft->update(frametime);
 	m_camera->update();
 	vec3 l_pos = m_camera->get_pos();
@@ -237,20 +294,23 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		(*it)->update(frametime);
-		if ((*it)->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
+		if ((*it)->get_AABB()->PointerInBox(m_aircraft->get_pos()) && !(*it)->get_pass()) {
 			cout << "지남" << endl;
 			m_aircraft->add_light();
+			(*it)->check_pass();
+			light_color += glm::vec3(0.2);
+			glUniform3f(light_color_location, light_color.x, light_color.y, light_color.z);
 		}
 	}
 
 
-	//AABB** walls_aabb = m_map->get_AABB();
-	//for (int i = 0; i < 7; i++) {
-	//	if (walls_aabb[i]->PointerInBox(m_aircraft->get_pos())) {
-	//		m_framework->enter_scene(Scene::GAMEOVER);
-	//		return;
-	//	}
-	//}
+	AABB** walls_aabb = m_map->get_AABB();
+	for (int i = 0; i < 7; i++) {
+		if (walls_aabb[i]->PointerInBox(m_aircraft->get_pos())) {
+			m_framework->enter_scene(Scene::GAMEOVER);
+			return;
+		}
+	}
 }
 
 void CGameScene::handle_event(Event a_event, int mouse_x, int mouse_y)
@@ -274,6 +334,15 @@ void CGameScene::release()
 	for (list<CFlag*>::iterator it = m_flages.begin(); it != m_flages.end(); it++) {
 		delete *it;
 	}
+
+	for (list<CFixedObstacle*>::iterator it = m_obstacles.begin(); it != m_obstacles.end(); it++) {
+		delete* it;
+	}
+
+	for (list<CMovingObstacle*>::iterator it = m_moving_obstacle.begin(); it != m_moving_obstacle.end(); it++) {
+		delete* it;
+	}
+
 	glClearColor(0, 0, 0, 1.0f);
 }
 
@@ -297,7 +366,6 @@ void CGameScene::create_flags()
 		CFlag* flag = new CFlag(flags_pos[i]);
 		m_flages.push_back(flag);
 	}
-	// 위치값 어디서인가 정의해놓고 만들기
 }
 
 void CGameScene::create_obstacles()

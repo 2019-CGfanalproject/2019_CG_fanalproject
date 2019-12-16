@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "gameobj.h"
 
-#define PLAYER_VELOCITY 15
+#define PLAYER_VELOCITY 3
 
 using namespace glm;
 
@@ -18,7 +18,7 @@ class CAircraft: public CGameObject
 	GLuint m_color_location;
 	GLuint m_emissive_location;
 
-	vec3 m_color = vec3(0, 1, 1);
+	vec3 m_color = vec3(0, 0.2, 0.2);
 	float emissive_value = 0;
 
 	float gravity = 2;
@@ -61,7 +61,6 @@ public:
 
 	vec4* get_vounding_box();
 
-	bool path_flag(vec3 flag_pos);
-
 	void add_light();
+	
 };

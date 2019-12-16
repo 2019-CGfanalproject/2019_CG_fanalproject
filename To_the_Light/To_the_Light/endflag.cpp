@@ -4,10 +4,10 @@
 CEndFlag::CEndFlag(vec3 pos)
 {
 	m_pos = pos;
-	model = translate(mat4(1), m_pos) * scale(glm::mat4(1), glm::vec3(10));
+	model = translate(mat4(1), m_pos) * scale(glm::mat4(1), glm::vec3(5));
 	pAABB = new AABB(
 		m_pos.x + 5, m_pos.x - 5, 
-		m_pos.y + 10, m_pos.y, 
+		m_pos.y + 5, m_pos.y - 5, 
 		m_pos.z + 5, m_pos.z - 5
 	);
 	init_buffers();
