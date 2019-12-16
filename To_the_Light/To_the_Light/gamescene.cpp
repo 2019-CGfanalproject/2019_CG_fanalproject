@@ -103,27 +103,27 @@ vec3 box_pos[]{
 	vec3(30,6,190),
 	vec3(30,6,188.001),
 
-	vec3(2.49,90,5),
-	vec3(.49,90,3),
-	vec3(-2.49,90,1),
+	vec3(2.49,5,90),
+	vec3(.49,3,90),
+	vec3(-2.49,1,90),
 
 
-	vec3(8,91.1,5),
-	vec3(8,93.1,7),
-	vec3(8,95.1,3),
+	vec3(8,5,91.1),
+	vec3(8,7,93.1),
+	vec3(8,3,95.1),
 
 
-	vec3(17,95.499,5),
-	vec3(17,93.499,2),
-	vec3(17,91.499,1),
+	vec3(17,5,95.499),
+	vec3(17,2,93.499),
+	vec3(17,1,91.499),
 
-	vec3(20,93,5),
-	vec3(20,91,5),
+	vec3(20,5,93),
+	vec3(20,5,91),
 
 
-	vec3(90,110,5),
-	vec3(87.51,113,3),
-	vec3(92.499,112,3)
+	vec3(90,5,110),
+	vec3(87.51,3,113),
+	vec3(92.499,3,112)
 };
 
 
@@ -323,7 +323,7 @@ void CGameScene::create_obstacles()
 		CMovingObstacle* tmp = new CMovingObstacle(double_pyramid_pos[i], 1);
 		m_moving_obstacle.push_back(tmp);
 	}
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < 21; i++) {
 		CMovingObstacle* tmp = new CMovingObstacle(box_pos[i], 2);
 		m_moving_obstacle.push_back(tmp);
 	}
