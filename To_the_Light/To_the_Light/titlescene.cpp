@@ -169,7 +169,7 @@ void CTitleScene::init_title_object()
 			rand() / (float)RAND_MAX - 1.5
 		);
 
-		snow_speed[i] = rand() % 5 + 2;
+		snow_speed[i] = (rand() % 5 + 1) * 0.3;
 	}
 
 
