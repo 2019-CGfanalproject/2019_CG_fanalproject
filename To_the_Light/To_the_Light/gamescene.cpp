@@ -217,10 +217,10 @@ vec3 laydown_cylinder_obstacle_pos[] = {
 };
 
 vec3 flags_pos[] = {
-   vec3(0, 5, 75),
-   vec3(80,5,93.5),
-   vec3(90,5,187),
-   vec3(15,5,190.5),
+	vec3(0, 5, 75),
+	vec3(80,5,93.5),
+	vec3(90,5,187),
+	vec3(15,5,190.5)
 };
 
 void CGameScene::create_obstacles()
