@@ -2,6 +2,10 @@
 #include "scene.h"
 #include "pch.h"
 
+#define SNOW_NUM 200
+
+using namespace glm;
+
 class CFramework;
 
 class CGameObject;
@@ -32,6 +36,7 @@ class CGameScene : public CScene
 	GLuint emissive_location;
 
 	glm::mat4 projection;
+	glm::vec3 light_color = glm::vec3(0.2);
 
 	CCamera* m_camera{ nullptr };
 	CMap* m_map{ nullptr };
@@ -42,6 +47,15 @@ class CGameScene : public CScene
 
 	std::list<CFixedObstacle*> m_obstacles;
 	std::list<CMovingObstacle*> m_moving_obstacle;
+
+	GLuint snow_vao, snow_vbo[2];
+	std::vector< glm::vec3 > snow_vertex, snow_normal;
+	std::vector< glm::vec2 > snow_uv;
+
+	mat4 snow_transform[SNOW_NUM];
+	vec3 snow_pos[SNOW_NUM];
+	vec3 snow_dir = vec3(1, -1, 0);
+	float snow_speed[SNOW_NUM];
 
 public:
 	CGameScene();

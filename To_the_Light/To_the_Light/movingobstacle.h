@@ -2,7 +2,7 @@
 #include "gameobj.h"
 #include "pch.h"
 
-#define OBSTACLE_SPEED 4
+#define OBSTACLE_SPEED 3
 
 using namespace glm;
 

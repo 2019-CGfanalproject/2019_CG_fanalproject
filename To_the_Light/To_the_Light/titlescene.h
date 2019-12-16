@@ -38,11 +38,12 @@ class CTitleScene : public CScene
 	std::vector< glm::vec3 > mouse_vertex, mouse_normal;
 	std::vector< glm::vec2 > mouse_uv;
 
+	mat4 cursor_transform;
+	
 	GLuint snow_vao, snow_vbo[2];
 	std::vector< glm::vec3 > snow_vertex, snow_normal;
 	std::vector< glm::vec2 > snow_uv;
 
-	mat4 cursor_transform;
 	mat4 snow_transform[SNOW_NUM];
 	vec3 snow_pos[SNOW_NUM];
 	vec3 snow_dir = vec3(-1, -1, 0);
