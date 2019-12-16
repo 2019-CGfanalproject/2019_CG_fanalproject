@@ -11,6 +11,85 @@
 #include "fixedobstacle.h"
 #include "movingobstacle.h"
 
+vec3 stand_cylinder_obstacle_pos[] = {
+	vec3(0, 0, 35),
+	vec3(2.5, 0, 65),
+	vec3(-2, 0, 83),
+	vec3(3.5, 0, 42),
+	vec3(-3.5, 0, 42),
+	vec3(80, 0, 96),
+	vec3(60,0,93.5),
+	vec3(80, 0, 91),
+	vec3(80, 0, 190.5),
+	vec3(70, 0, 190.5),
+	vec3(60, 0, 192.5),
+	vec3(50, 0, 192.5),
+	vec3(90,0,150),
+	vec3(87.5,0,135),
+	vec3(92.5,0,145),
+};
+
+vec3 laydown_cylinder_obstacle_pos[] = {
+	vec3(4,0,15),
+	vec3(4,8,15),
+	vec3(4,4,25),
+	vec3(4,2,30),
+	vec3(4,2,42),
+	vec3(4,9,42),
+	vec3(4,4,47),
+	vec3(4,2,52),
+	vec3(4,6,56),
+	vec3(4,8,70),
+	vec3(30,7,89),
+	vec3(50,7,89),
+	vec3(20,7,186),
+	//13개
+};
+
+vec3 flags_pos[] = {
+	vec3(0, 5, 75),
+	vec3(80,5,93.5),
+	vec3(90,5,187),
+	vec3(15,5,190.5)
+};
+
+vec3 diamond_pos[]{
+	// 92~88
+	vec3(90.5,6,120),
+	vec3(88,4,124),
+	vec3(90,5,125),
+	vec3(87.5,7,129),
+	vec3(89,2,129),
+	vec3(90,8,133),
+	vec3(91,2,140),
+	vec3(88.5,8,143),
+	vec3(88,2,163),
+	vec3(89,4,165),
+	vec3(87.5,5,170),
+	vec3(91,8,165),
+	vec3(89.5,5,173)
+	//13개
+
+};
+
+vec3 double_pyramid_pos[]{
+	vec3(33,3,94),
+	vec3(37,3,94.5),
+	vec3(43,5,91.5),
+	vec3(40,8,94.5),
+	vec3(43,7,93.5),
+	vec3(47,7,94),
+	vec3(56,3,94.5),
+	vec3(56,5,91),
+	vec3(63,6,92),
+	vec3(67,7,94),
+	vec3(70,7,91.5),
+	vec3(55,2,198),
+	vec3(45,4,190),
+	vec3(35,5,188)
+	//14개
+};
+
 CGameScene::CGameScene()
 {
 }
@@ -86,18 +165,23 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 	m_aircraft->update(frametime);
 	m_camera->update();
 	vec3 l_pos = m_camera->get_pos();
-
 	glUniform3f(light_pos_location, l_pos.x, l_pos.y + 0.2, l_pos.z);
 
+	if (m_end_flag->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
+		m_framework->enter_scene(Scene::CLEAR);
+		return;
+	}
 
 	for (list<CMovingObstacle*>::iterator it = m_moving_obstacle.begin(); it != m_moving_obstacle.end(); it++) {
+		// 업데이트
 		(*it)->update(frametime);
 
+		
+		// 충돌체크
 		AABB** walls_aabb = m_map->get_AABB();
 		for (int i = 0; i < 7; i++) {
 			if (AABBToAABB((*it)->get_AABB(), walls_aabb[i])) {
 				(*it)->change_dir();
-				return;
 			}
 		}
 
@@ -122,10 +206,6 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 		}
 	}
 
-	if (m_end_flag->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
-		m_framework->enter_scene(Scene::CLEAR);
-		return;
-	}
 
 	//AABB** walls_aabb = m_map->get_AABB();
 	//for (int i = 0; i < 7; i++) {
@@ -176,92 +256,17 @@ void CGameScene::get_uniform_location()
 
 void CGameScene::create_flags()
 {
-	CFlag* flag = new CFlag(vec3(0, 3, 5));
-	m_flages.push_back(flag);
+
+	for (int i = 0; i < 4; i++) {
+		CFlag* flag = new CFlag(flags_pos[i]);
+		m_flages.push_back(flag);
+	}
 	// 위치값 어디서인가 정의해놓고 만들기
-}
-
-vec3 stand_cylinder_obstacle_pos[] = {
-	vec3(0, 0, 35),
-	vec3(2.5, 0, 65),
-	vec3(-2, 0, 83),
-	vec3(3.5, 0, 42),
-	vec3(-3.5, 0, 42),
-	vec3(80, 0, 96),
-	vec3(60,0,93.5),
-	vec3(80, 0, 91),
-	vec3(80, 0, 190.5),
-	vec3(70, 0, 190.5),
-	vec3(60, 0, 192.5),
-	vec3(50, 0, 192.5),
-	vec3(90,0,150),
-	vec3(87.5,0,135),
-	vec3(92.5,0,145),
-};
-
-vec3 laydown_cylinder_obstacle_pos[] = {
-	vec3(4,0,15),
-	vec3(4,8,15),
-	vec3(4,4,25),
-	vec3(4,2,30),
-	vec3(4,2,42),
-	vec3(4,9,42),
-	vec3(4,4,47),
-	vec3(4,2,52),
-	vec3(4,6,56),
-	vec3(4,8,70),
-	vec3(30,7,89),
-	vec3(50,7,89),
-	vec3(20,7,186),
-	//13개
-};
-
-vec3 flags_pos[] = {
-	vec3(0, 5, 75),
-	vec3(80,5,93.5),
-	vec3(90,5,187),
-	vec3(15,5,190.5)
-};
-
-vec3 diamond_pos[]{
-	vec3(90,6,120),
-	vec3(88,4,124),
-	vec3(90,5,125),
-	vec3(87.5,7,129),
-	vec3(92,2,129),
-	vec3(92,8,133),
-	vec3(90,2,140),
-	vec3(88,8,143),
-	vec3(88,2,163),
-	vec3(89,4,165),
-	vec3(87.5,5,170),
-	vec3(92,8,165),
-	vec3(92,5,173)
-	//13개
-
-};
-
-vec3 double_pyramid_pos[]{
-	vec3(33,7,95.5),
-	vec3(37,3,94.5),
-	vec3(43,5,91.5),
-	vec3(40,8,94.5),
-	vec3(43,7,93.5),
-	vec3(47,7,95.5),
-	vec3(56,3,94.5),
-	vec3(56,5,91.5),
-	vec3(63,6,92),
-	vec3(67,7,95.5),
-	vec3(70,7,91.5),
-	vec3(55,2,198),
-	vec3(45,4,190),
-	vec3(35,5,188)
-	//14개
 }
 
 void CGameScene::create_obstacles()
 {
-	for (int i = 0; i < 13; i++) {
+	for (int i = 0; i < 15; i++) {
 		CFixedObstacle* tmp = new CFixedObstacle(stand_cylinder_obstacle_pos[i], 0);
 		m_obstacles.push_back(tmp);
 	}
@@ -274,8 +279,19 @@ void CGameScene::create_obstacles()
 		m_obstacles.push_back(tmp);
 	}
 
-	CMovingObstacle* tmp = new CMovingObstacle(vec3(0, 5, 5), 0);
-	m_moving_obstacle.push_back(tmp);
+	for (int i = 0; i < 13; i++) {
+		CMovingObstacle* tmp = new CMovingObstacle(diamond_pos[i], 0);
+		m_moving_obstacle.push_back(tmp);
+	}
+	for (int i = 0; i < 14; i++) {
+		CMovingObstacle* tmp = new CMovingObstacle(double_pyramid_pos[i], 1);
+		m_moving_obstacle.push_back(tmp);
+	}
+	for (int i = 0; i < 1; i++) {
+		CMovingObstacle* tmp = new CMovingObstacle(double_pyramid_pos[i], 2);
+		m_moving_obstacle.push_back(tmp);
+	}
+
 }
 
 

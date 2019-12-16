@@ -15,7 +15,6 @@ CMovingObstacle::CMovingObstacle(vec3 pos, int state)
 
 	transform = translate(mat4(1), m_pos);
 
-	dir = vec3(1, 0, 0);
 }
 
 
@@ -41,6 +40,10 @@ void CMovingObstacle::update(std::chrono::milliseconds a_framtime)
 	m_pos += dir * vec3(OBSTACLE_SPEED * frametime);
 	transform = translate(mat4(1), m_pos);
 
+	//if (m_pos.y > 9) {
+	//	change_dir();
+	//}
+
 	update_AABB();
 }
 
@@ -62,22 +65,27 @@ void CMovingObstacle::init_buffers()
 			m_pos.y + 1, m_pos.y - 1,
 			m_pos.z + 1, m_pos.z - 1
 			);
+		dir = vec3(1, 0, 0);
+
 		break;
 	case 1:
-		loadObj("Resource/Object/obstacle_doublepyramid.obj", vertex, normal, uv);
+		loadObj("Resource/Object/obatacle_doublepyramid.obj", vertex, normal, uv);
 		pAABB = new AABB(
 			m_pos.x + 1, m_pos.x - 1,
 			m_pos.y + 1, m_pos.y - 1,
 			m_pos.z + 1, m_pos.z - 1
 		);
+		dir = vec3(0, 0, 1);
+
 		break;
 	case 2:
-		loadObj("Resource/Object/obstacle_box.obj", vertex, normal, uv);
+		loadObj("Resource/Object/box.obj", vertex, normal, uv);
 		pAABB = new AABB(
 			m_pos.x + 1, m_pos.x - 1,
 			m_pos.y + 1, m_pos.y - 1,
 			m_pos.z + 1, m_pos.z - 1
 		);
+		dir = vec3(0, 1, 0);
 		break;
 	}
 	
