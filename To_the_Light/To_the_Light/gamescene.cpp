@@ -89,8 +89,18 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 
 	glUniform3f(light_pos_location, l_pos.x, l_pos.y + 0.2, l_pos.z);
 
+
 	for (list<CMovingObstacle*>::iterator it = m_moving_obstacle.begin(); it != m_moving_obstacle.end(); it++) {
 		(*it)->update(frametime);
+
+		AABB** walls_aabb = m_map->get_AABB();
+		for (int i = 0; i < 7; i++) {
+			if (AABBToAABB((*it)->get_AABB(), walls_aabb[i])) {
+				(*it)->change_dir();
+				return;
+			}
+		}
+
 		if ((*it)->get_AABB()->PointerInBox(m_aircraft->get_pos())) {
 			m_framework->enter_scene(Scene::GAMEOVER);
 			return;
@@ -184,7 +194,9 @@ vec3 stand_cylinder_obstacle_pos[] = {
 	vec3(70, 0, 190.5),
 	vec3(60, 0, 192.5),
 	vec3(50, 0, 192.5),
-	vec3(90,0,150)
+	vec3(90,0,150),
+	vec3(87.5,0,135),
+	vec3(92.5,0,145),
 };
 
 vec3 laydown_cylinder_obstacle_pos[] = {
@@ -205,7 +217,10 @@ vec3 laydown_cylinder_obstacle_pos[] = {
 };
 
 vec3 flags_pos[] = {
-	vec3(0, 5, 75),
+   vec3(0, 5, 75),
+   vec3(80,5,93.5),
+   vec3(90,5,187),
+   vec3(15,5,190.5),
 };
 
 void CGameScene::create_obstacles()
@@ -228,3 +243,22 @@ void CGameScene::create_obstacles()
 }
 
 
+bool AABBToAABB(AABB* pAABB1, AABB* pAABB2)
+{
+	//x축에대하여
+	if (pAABB1->MaxX() < pAABB2->MinX() || pAABB1->MinX() > pAABB2->MaxX()) {
+		return false;
+	}
+
+	//y축에대하여
+	if (pAABB1->MaxY() < pAABB2->MinY() || pAABB1->MinY() > pAABB2->MaxY()) {
+		return false;
+	}
+	
+	//z축에대하여
+	if (pAABB1->MaxZ() < pAABB2->MinZ() || pAABB1->MinZ() > pAABB2->MaxZ()) {
+		return false;
+	}
+
+	return true;
+}

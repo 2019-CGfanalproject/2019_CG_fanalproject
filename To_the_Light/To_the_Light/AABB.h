@@ -26,5 +26,7 @@ public:
 	float MinZ() { return min_z; };
 
 	bool PointerInBox(glm::vec3 pt);
+
+	void update_AABB(float a_max_x, float a_min_x, float a_max_y, float a_min_y, float a_max_z, float a_min_z);
 };
 

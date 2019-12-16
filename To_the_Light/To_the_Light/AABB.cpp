@@ -28,3 +28,16 @@ bool AABB::PointerInBox(glm::vec3 pt)
 
 	return true;
 }
+
+void AABB::update_AABB(float a_max_x, float a_min_x, float a_max_y, float a_min_y, float a_max_z, float a_min_z)
+{
+	max_x = a_max_x;
+	min_x = a_min_x;
+
+	max_y = a_max_y;
+	min_y = a_min_y;
+
+	max_z = a_max_z;
+	min_z = a_min_z;
+
+}

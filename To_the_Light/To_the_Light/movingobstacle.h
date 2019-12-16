@@ -2,7 +2,7 @@
 #include "gameobj.h"
 #include "pch.h"
 
-#define OBSTACLE_SPEED 2;
+#define OBSTACLE_SPEED 2
 
 using namespace glm;
 
@@ -17,8 +17,10 @@ class CMovingObstacle : public CGameObject
 
 	vec3 m_color = vec3(0, 0, 1);
 
+	vec3 m_gen_pos;
 	vec3 m_pos;
 	mat4 transform = mat4(1);
+	vec3 dir;
 
 	GLuint vao;
 	GLuint vbo[2];
@@ -40,5 +42,10 @@ public:
 	void init_buffers();
 
 	AABB* get_AABB();
+
+	void change_dir();
+
+	void update_AABB();
 };
 
+bool AABBToAABB(AABB* pAABB1, AABB* pAABB2);

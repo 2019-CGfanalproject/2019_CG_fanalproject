@@ -9,10 +9,13 @@ CMovingObstacle::CMovingObstacle(vec3 pos, int state)
 {
 	m_state = state;
 	m_pos = pos;
+	m_gen_pos = pos;
 
 	init_buffers();
 
 	transform = translate(mat4(1), m_pos);
+
+	dir = vec3(1, 0, 0);
 }
 
 
@@ -34,6 +37,11 @@ void CMovingObstacle::draw()
 void CMovingObstacle::update(std::chrono::milliseconds a_framtime)
 {
 	float frametime = a_framtime.count() / (float)1000;
+
+	m_pos += dir * vec3(OBSTACLE_SPEED * frametime);
+	transform = translate(mat4(1), m_pos);
+
+	update_AABB();
 }
 
 void CMovingObstacle::set_uniform_pos(GLuint model_location, GLuint color_location, GLuint alpha_location, GLuint emissive_location)
@@ -94,4 +102,19 @@ void CMovingObstacle::init_buffers()
 AABB* CMovingObstacle::get_AABB()
 {
 	return pAABB;
+}
+
+void CMovingObstacle::change_dir()
+{
+	dir = -dir;
+}
+
+void CMovingObstacle::update_AABB()
+{
+	pAABB->update_AABB(
+		m_pos.x + 1, m_pos.x - 1,
+		m_pos.y + 1, m_pos.y - 1,
+		m_pos.z + 1, m_pos.z - 1
+	);
+
 }

@@ -62,36 +62,6 @@ public:
 	void create_flags();
 
 	void create_obstacles();
+
 };
 
-// bool AABBToAABB(AABB* pAABB1, AABB* pAABB2)
-// {
-// 	//x축에대하여
-// 
-// 	if (pAABB1->Max.x < pAABB2->Min.x ||
-// 
-// 		pAABB1->Min.x < pAABB2->Max.x)
-// 
-// 		return false;
-// 
-// 
-// 	//y축에대하여
-// 
-// 	if (pAABB1->Max.y < pAABB2->Min.y ||
-// 
-// 		pAABB1->Min.y < pAABB2->Max.y)
-// 
-// 		return false;
-// 
-// 
-// 	//z축에대하여
-// 
-// 	if (pAABB1->Max.z < pAABB2->Min.z ||
-// 
-// 		pAABB1->Min.z < pAABB2->Max.z)
-// 
-// 		return false;
-// 
-// 
-// 	return true;
-// }
