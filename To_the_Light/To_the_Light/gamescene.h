@@ -36,7 +36,7 @@ class CGameScene : public CScene
 	GLuint emissive_location;
 
 	glm::mat4 projection;
-	glm::vec3 light_color = glm::vec3(0.2);
+	glm::vec3 light_color = glm::vec3(0.6);
 
 	CCamera* m_camera{ nullptr };
 	CMap* m_map{ nullptr };

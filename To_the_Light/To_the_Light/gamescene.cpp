@@ -144,17 +144,17 @@ void CGameScene::initalize(CFramework* p_fw)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	loadObj("Resource/Object/sphere.obj", snow_vertex, snow_normal, snow_uv);
-
+	
 	glGenVertexArrays(1, &snow_vao);
 	glGenBuffers(2, snow_vbo);
-
+	
 	glBindVertexArray(snow_vao);
-
+	
 	glBindBuffer(GL_ARRAY_BUFFER, snow_vbo[0]);
 	glBufferData(GL_ARRAY_BUFFER, snow_vertex.size() * sizeof(glm::vec3), &snow_vertex[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(0);
-
+	
 	glBindBuffer(GL_ARRAY_BUFFER, snow_vbo[1]);
 	glBufferData(GL_ARRAY_BUFFER, snow_normal.size() * sizeof(glm::vec3), &snow_normal[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
@@ -165,8 +165,8 @@ void CGameScene::initalize(CFramework* p_fw)
 
 	shader_id = *m_framework->get_shader_id();
 	get_uniform_location();
-	glm::vec3 light_color = glm::vec3(0.2);
-	glUniform3f(light_color_location, light_color.x, light_color.y, light_color.z);
+
+
 	projection = glm::perspective(glm::radians(90.0f), (float)CLIENT_WIDTH / (float)CLIENT_HIEGHT, 0.1f, 100.0f);
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, value_ptr(projection));
 	
@@ -206,6 +206,8 @@ void CGameScene::initalize(CFramework* p_fw)
 
 		snow_speed[i] = (rand() % 5 + 1) * 0.3;
 	}
+
+	glUniform3f(light_color_location, 0.6, 0.6,0.6);
 
 }
 
@@ -298,7 +300,7 @@ void CGameScene::update(std::chrono::milliseconds frametime)
 			cout << "Áö³²" << endl;
 			m_aircraft->add_light();
 			(*it)->check_pass();
-			light_color += glm::vec3(0.2);
+  			light_color = light_color + vec3(0.1);
 			glUniform3f(light_color_location, light_color.x, light_color.y, light_color.z);
 		}
 	}
