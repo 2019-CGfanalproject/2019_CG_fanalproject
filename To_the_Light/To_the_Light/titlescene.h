@@ -2,6 +2,8 @@
 #include "scene.h"
 #include "pch.h"
 
+#define SNOW_NUM 100
+
 using namespace glm;
 
 class CFramework;
@@ -36,7 +38,15 @@ class CTitleScene : public CScene
 	std::vector< glm::vec3 > mouse_vertex, mouse_normal;
 	std::vector< glm::vec2 > mouse_uv;
 
+	GLuint snow_vao, snow_vbo[2];
+	std::vector< glm::vec3 > snow_vertex, snow_normal;
+	std::vector< glm::vec2 > snow_uv;
+
 	mat4 cursor_transform;
+	mat4 snow_transform[SNOW_NUM];
+	vec3 snow_pos[SNOW_NUM];
+	vec3 snow_dir = vec3(-1, -1, 0);
+	float snow_speed[SNOW_NUM];
 
 	float m_mouse_x;
 	float m_mouse_y;

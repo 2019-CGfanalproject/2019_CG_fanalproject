@@ -40,9 +40,9 @@ void CMovingObstacle::update(std::chrono::milliseconds a_framtime)
 	m_pos += dir * vec3(OBSTACLE_SPEED * frametime);
 	transform = translate(mat4(1), m_pos);
 
-	//if (m_pos.y > 9) {
-	//	change_dir();
-	//}
+	if (m_pos.y > 9) {
+		change_dir();
+	}
 
 	update_AABB();
 }

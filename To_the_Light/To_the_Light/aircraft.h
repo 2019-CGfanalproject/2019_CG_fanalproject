@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "gameobj.h"
 
-#define PLAYER_VELOCITY 3
+#define PLAYER_VELOCITY 15
 
 using namespace glm;
 

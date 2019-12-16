@@ -91,21 +91,19 @@ vec3 double_pyramid_pos[]{
 };
 
 vec3 box_pos[]{
-	vec3(13,5,192.009),
+	vec3(13,5,192.999),
 	vec3(13,5,191),
 	vec3(13,5,189),
 
 	//7°³
-	vec3(13,2,192.009),
-	vec3(13,2,191),
+	vec3(25,2,192.999),
+	vec3(25,2,191),
 
 	//5°³
-	vec3(13,6,191),
-	vec3(13,6,1880.1),
+	vec3(30,6,190),
+	vec3(30,6,188.001),
 
 	//5
-
-
 };
 
 
@@ -275,7 +273,6 @@ void CGameScene::get_uniform_location()
 
 void CGameScene::create_flags()
 {
-
 	for (int i = 0; i < 4; i++) {
 		CFlag* flag = new CFlag(flags_pos[i]);
 		m_flages.push_back(flag);
@@ -306,8 +303,8 @@ void CGameScene::create_obstacles()
 		CMovingObstacle* tmp = new CMovingObstacle(double_pyramid_pos[i], 1);
 		m_moving_obstacle.push_back(tmp);
 	}
-	for (int i = 0; i < 1; i++) {
-		CMovingObstacle* tmp = new CMovingObstacle(double_pyramid_pos[i], 2);
+	for (int i = 0; i < 7; i++) {
+		CMovingObstacle* tmp = new CMovingObstacle(box_pos[i], 2);
 		m_moving_obstacle.push_back(tmp);
 	}
 

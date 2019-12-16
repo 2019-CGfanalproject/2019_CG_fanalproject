@@ -46,6 +46,14 @@ void CTitleScene::draw()
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(cursor_transform));
 	glUniform3f(object_color_location, 1, 1, 1);
 	glDrawArrays(GL_TRIANGLES, 0, mouse_vertex.size());
+
+	glBindVertexArray(snow_vao);
+	glUniform3f(object_color_location, 1, 1, 1);
+	
+	for (int i = 0; i < 50; i++) {
+		glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(snow_transform[i]));
+		glDrawArrays(GL_TRIANGLES, 0, snow_vertex.size());
+	}
 }
 
 void CTitleScene::update(std::chrono::milliseconds framtime)
@@ -54,6 +62,17 @@ void CTitleScene::update(std::chrono::milliseconds framtime)
 	cursor_transform = 
 		translate(mat4(1), vec3(m_mouse_x, m_mouse_y, -0.5)) * 
 		scale(mat4(1), vec3(0.05));
+
+	for (int i = 0; i < SNOW_NUM; i++) {
+		if (snow_pos[i].y < -1) snow_pos[i].y = 1;
+		if (snow_pos[i].x < -2) snow_pos[i].x = 2;
+
+		snow_pos[i] += snow_dir * snow_speed[i] * vec3(framtime.count() / (float)1000);
+		snow_transform[i] = 
+			translate(mat4(1), snow_pos[i]) *
+			scale(mat4(1), vec3(0.02));
+	}
+	
 
 }
 
@@ -125,4 +144,33 @@ void CTitleScene::init_title_object()
 	glBufferData(GL_ARRAY_BUFFER, mouse_normal.size() * sizeof(glm::vec3), &mouse_normal[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(1);
+
+	loadObj("Resource/Object/sphere.obj", snow_vertex, snow_normal, snow_uv);
+
+	glGenVertexArrays(1, &snow_vao);
+	glGenBuffers(2, snow_vbo);
+
+	glBindVertexArray(snow_vao);
+
+	glBindBuffer(GL_ARRAY_BUFFER, snow_vbo[0]);
+	glBufferData(GL_ARRAY_BUFFER, snow_vertex.size() * sizeof(glm::vec3), &snow_vertex[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, snow_vbo[1]);
+	glBufferData(GL_ARRAY_BUFFER, snow_normal.size() * sizeof(glm::vec3), &snow_normal[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+	glEnableVertexAttribArray(1);
+
+	for (int i = 0; i < SNOW_NUM; i++) {
+		snow_pos[i] = vec3(
+			rand() / (float)RAND_MAX * 4 - 2,
+			rand() / (float)RAND_MAX * 2 - 1,
+			rand() / (float)RAND_MAX - 1.5
+		);
+
+		snow_speed[i] = rand() % 5 + 2;
+	}
+
+
 }
